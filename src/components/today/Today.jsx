@@ -1,117 +1,96 @@
-import React from 'react'
-import { useState } from "react";
+import React from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-import './today.scss'
-import { Add,NavigateNext, TodayOutlined} from '@mui/icons-material'
-import New from '../NewModal/New';
+import "./today.scss";
+import { Add, NavigateNext, TodayOutlined } from "@mui/icons-material";
+import New from "../NewModal/New";
 
-
-const tasks =[
-
-    {
-        id: "task1",
-        title:"Reaseach Content Ideas",
-        date:"12-07-2025",
-        Category:"Personal",
-    },
-     {
-        id: "task2",
-        title:"Create a Database of Guest authors",
-        date:"14-07-2025",
-        Category:" Other",
-    },
-     {
-        id: "task3",
-        title:"Renew driver's license",
-        date:"12-07-2025",
-        Category:"Personal",
-    },
-     {
-        id: "task4",
-        title:"Finish the backend of task management app",
-        date:"12-07-2025",
-        Category:"Work",
-    }
-];
 const Today = () => {
-    const [openTask,setOpenTask]= useState(null);
-    const [showEditor,setShowEditor]=useState(false);
+  const [openTask, setOpenTask] = useState(null);
+  const [showEditor, setShowEditor] = useState(false);
+  const [tasks, setTasks] = useState([]);
+  useEffect(() => {
+    fetchTasks();
+  }, []);
 
+  const fetchTasks = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/tasks");
 
-    const handleCloseEditor= ()=>{
-        setShowEditor(false)
+      setTasks(response.data);
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    const toggleDetails = (id)=> {
-        setOpenTask(openTask=== id ? null : id);
-    };
+  const handleCloseEditor = () => {
+    setShowEditor(false);
+  };
+
+  const toggleDetails = (id) => {
+    setOpenTask(openTask === id ? null : id);
+  };
 
   return (
-    <div className='today'>
+    <div className="today">
       <p className="title"> Today </p>
       <ul>
-        <li  style={{border:"1px solid #e6e6e6"}} onClick={()=>{
+        <li
+          style={{ border: "1px solid #e6e6e6" }}
+          onClick={() => {
             setShowEditor(true);
-        }}>
-            <Add/>
-            <span style={{marginLeft:"10px"}}>Add New Task</span>
-
+          }}
+        >
+          <Add />
+          <span style={{ marginLeft: "10px" }}>Add New Task</span>
         </li>
-        {tasks.map((task)=>(
-            <li key={task.id}>
-            <input type='checkbox' id={task.id}/>
+        {tasks.map((task) => (
+          <li key={task._id}>
+            <input type="checkbox" id={task._id} />
             <label>
-                {task.title}
-                {openTask=== task.id && ( 
-                    <div className="details">
-                    <div className="left">
-                        <TodayOutlined className='icon'/>
-                        <p> {task.date}</p>
-
-
-                    </div>
-                    <div className="center">
-                        <span>2</span>
-                        <p>Subtasks </p>
-                        </div> 
-                    <div className="right">
-                        <span className='color' 
-                        style={{
-                            backgroundColor:
-                            task.Category==="Personal" 
+              {task.title}
+              {openTask === task._id && (
+                <div className="details">
+                  <div className="left">
+                    <TodayOutlined className="icon" />
+                    <p> {task.dueDate}</p>
+                  </div>
+                  <div className="center">
+                    <span>2</span>
+                    <p>Subtasks </p>
+                  </div>
+                  <div className="right">
+                    <span
+                      className="color"
+                      style={{
+                        backgroundColor:
+                          task.category === "Personal"
                             ? "#e74c3c"
-                            : task.Category=== "Work"
-                            ? "#3498db"
-                            : "#f1c40f"
-                            }}> 
-                            </span>
-                        <p>
-                            {task.Category}
-                        </p>
-                    </div>
-               </div>)}
-               
+                            : task.category === "Work"
+                              ? "#3498db"
+                              : "#f1c40f",
+                      }}
+                    ></span>
+                    <p>{task.category}</p>
+                  </div>
+                </div>
+              )}
             </label>
-            <NavigateNext 
-            className={`icon ${openTask===task.id ? "rotate" : ""}`}  
-            onClick={(e)=>{
-                toggleDetails(task.id);
-            
-            }}
+            <NavigateNext
+              className={`icon ${openTask === task._id ? "rotate" : ""}`}
+              onClick={(e) => {
+                toggleDetails(task._id);
+              }}
             />
-            
-        </li>
-
+          </li>
         ))}
-       
-        
-        
       </ul>
-      {showEditor &&(
-        <New onClose={handleCloseEditor}/>
+      {showEditor && (
+        <New onClose={handleCloseEditor} fetchTasks={fetchTasks} />
       )}
-    </div> 
+    </div>
   );
 };
 
-export default Today
+export default Today;

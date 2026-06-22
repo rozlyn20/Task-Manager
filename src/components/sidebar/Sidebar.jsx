@@ -1,9 +1,14 @@
 import React from 'react'
 import "./sidebar.scss";
-
+import { useNavigate,Link } from 'react-router-dom';
 import {Add, CalendarMonthOutlined, Checklist, Logout, Menu,NavigateNext, SearchOutlined, StickyNote2} from '@mui/icons-material';
 
 const Sidebar = () => {
+ const navigate =useNavigate();
+  const handleLogOut=()=>{
+    navigate('/login')
+    
+  }
   return (
     <div className="sidebar">
       <div className="top">
@@ -22,26 +27,34 @@ const Sidebar = () => {
       <div className="center"> 
       <ul>
         <p className='title'>Tasks</p>
+        <Link to="/home" style={{textDecoration:"none"}}>
         
         <li>
           <NavigateNext className="icon"/>
             <span>Upcoming</span>
             <div className="counter">5</div>
               </li>
+        </Link>
+        <Link to="/day" style={{textDecoration:"none"}}>
             <li>
               <Checklist className="icon"/>
                 <span> Today</span>
                 <div className="counter">4</div>
             </li>
+         </Link>
+          <Link to="/calendar" style={{textDecoration:"none"}}>
              <li>
-              <CalendarMonthOutlined/>
+              <CalendarMonthOutlined className='icon'/>
 
                 <span> Calendar</span>
             </li>
+            </Link>
+            <Link to="/sticky" style={{textDecoration:"none"}}>
             <li>
               <StickyNote2 className="icon"/>
                 <span> Sticky wall</span>
             </li>
+            </Link>
           </ul>
          
             
@@ -87,7 +100,7 @@ const Sidebar = () => {
      <br/>
       <div className="bottom">
         <ul>
-            <li>
+            <li onClick={handleLogOut}>
               <Logout className="icon"/>
                 <span>
                     Sign out
