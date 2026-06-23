@@ -1,33 +1,62 @@
 import React from "react";
 import "./new.scss";
 import { Add } from "@mui/icons-material";
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 import axios from "axios";
 
-const New = ({ onClose, fetchTasks  }) => {
+const New = ({ onClose, fetchTasks, task   }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Personal");
   const [dueDate, setDueDate] = useState("");
 
-  const saveTask = async () => {
-    try {
-        await axios.post(
-            "http://localhost:5000/api/tasks",
-            {
-                title,
-                description,
-                category,
-                dueDate
-            }
-        );
+  useEffect(() => {
+  if (task) {
+    setTitle(task.title || "");
+    setDescription(task.description || "");
+    setCategory(task.category || "Personal");
 
-        fetchTasks();   // refresh task list
-        onClose();
-
-    } catch(error) {
-        console.log(error);
+    if (task.dueDate) {
+      setDueDate(task.dueDate.split("T")[0]);
     }
+  }
+}, [task]);
+
+  const saveTask = async () => {
+  try {
+
+    if (task) {
+
+      await axios.put(
+        `http://localhost:5000/api/tasks/${task._id}`,
+        {
+          title,
+          description,
+          category,
+          dueDate
+        }
+      );
+
+    } else {
+
+      await axios.post(
+        "http://localhost:5000/api/tasks",
+        {
+          title,
+          description,
+          category,
+          dueDate
+        }
+      );
+
+    }
+
+    fetchTasks();
+    onClose();
+
+  } catch (error) {
+    console.log(error);
+  }
 };
   return (
     <div className="modal-overlay">
@@ -35,7 +64,7 @@ const New = ({ onClose, fetchTasks  }) => {
         <button className="close-button" onClick={onClose}>
           &times;
         </button>
-        <h2> Add new task</h2>
+        <h2>{task ? "Edit Task" : "Add New Task"}</h2>
         <div className="new">
           <div className="top">
             <p className="title">Task</p>

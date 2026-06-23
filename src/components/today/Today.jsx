@@ -9,6 +9,7 @@ import New from "../NewModal/New";
 const Today = () => {
   const [openTask, setOpenTask] = useState(null);
   const [showEditor, setShowEditor] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
   useEffect(() => {
     fetchTasks();
@@ -36,22 +37,20 @@ const Today = () => {
       console.log(error);
     }
   };
-const toggleComplete = async (task) => {
-  try {
-    await axios.put(
-      `http://localhost:5000/api/tasks/${task._id}`,
-      {
-        completed: !task.completed
-      }
-    );
+  const toggleComplete = async (task) => {
+    try {
+      await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
+        completed: !task.completed,
+      });
 
-    fetchTasks();
-  } catch (error) {
-    console.log(error);
-  }
-};
+      fetchTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleCloseEditor = () => {
     setShowEditor(false);
+    setSelectedTask(null);
   };
 
   const toggleDetails = (id) => {
@@ -78,15 +77,15 @@ const toggleComplete = async (task) => {
               checked={task.completed}
               onChange={() => toggleComplete(task)}
             />
-            <label>
-               <span
-    style={{
-      textDecoration: task.completed ? "line-through" : "none",
-      opacity: task.completed ? 0.6 : 1,
-    }}
-  >
-    {task.title}
-  </span>
+            <div className="task-content">
+              <span
+                style={{
+                  textDecoration: task.completed ? "line-through" : "none",
+                  opacity: task.completed ? 0.6 : 1,
+                }}
+              >
+                {task.title}
+              </span>
               {openTask === task._id && (
                 <div className="details">
                   <div className="left">
@@ -119,7 +118,19 @@ const toggleComplete = async (task) => {
                     }}
                   >
                     <button
-                      onClick={() => deleteTask(task._id)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedTask(task);
+                        setShowEditor(true);
+                      }}
+                    >
+                      Edit Task
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        deleteTask(task._id);
+                      }}
                       style={{
                         padding: "6px 12px",
                         border: "none",
@@ -134,7 +145,7 @@ const toggleComplete = async (task) => {
                   </div>
                 </div>
               )}
-            </label>
+            </div>
             <NavigateNext
               className={`icon ${openTask === task._id ? "rotate" : ""}`}
               onClick={(e) => {
@@ -145,7 +156,7 @@ const toggleComplete = async (task) => {
         ))}
       </ul>
       {showEditor && (
-        <New onClose={handleCloseEditor} fetchTasks={fetchTasks} />
+        <New onClose={handleCloseEditor} fetchTasks={fetchTasks} task={selectedTask}/>
       )}
     </div>
   );
