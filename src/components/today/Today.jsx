@@ -23,7 +23,33 @@ const Today = () => {
       console.log(error);
     }
   };
+  const deleteTask = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
 
+      fetchTasks();
+
+      if (openTask === id) {
+        setOpenTask(null);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+const toggleComplete = async (task) => {
+  try {
+    await axios.put(
+      `http://localhost:5000/api/tasks/${task._id}`,
+      {
+        completed: !task.completed
+      }
+    );
+
+    fetchTasks();
+  } catch (error) {
+    console.log(error);
+  }
+};
   const handleCloseEditor = () => {
     setShowEditor(false);
   };
@@ -47,9 +73,20 @@ const Today = () => {
         </li>
         {tasks.map((task) => (
           <li key={task._id}>
-            <input type="checkbox" id={task._id} />
+            <input
+              type="checkbox"
+              checked={task.completed}
+              onChange={() => toggleComplete(task)}
+            />
             <label>
-              {task.title}
+               <span
+    style={{
+      textDecoration: task.completed ? "line-through" : "none",
+      opacity: task.completed ? 0.6 : 1,
+    }}
+  >
+    {task.title}
+  </span>
               {openTask === task._id && (
                 <div className="details">
                   <div className="left">
@@ -73,6 +110,27 @@ const Today = () => {
                       }}
                     ></span>
                     <p>{task.category}</p>
+                  </div>
+                  <div
+                    style={{
+                      marginTop: "10px",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <button
+                      onClick={() => deleteTask(task._id)}
+                      style={{
+                        padding: "6px 12px",
+                        border: "none",
+                        borderRadius: "5px",
+                        cursor: "pointer",
+                        backgroundColor: "#e74c3c",
+                        color: "white",
+                      }}
+                    >
+                      Delete Task
+                    </button>
                   </div>
                 </div>
               )}
