@@ -6,6 +6,68 @@
         background-color:  #F4F8F4;   /* main soft green background */
         padding: 10px 20px;
 
+        .upcoming-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+
+  h3 {
+    margin-bottom: 15px;
+    color: #2F4F4F;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 12px;
+      margin-bottom: 10px;
+
+      border: 1px solid #e6e6e6;
+      border-radius: 8px;
+    }
+  }
+}
+        ul{
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+
+        li{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            // background-color: #f9f9f9;
+            background-color:#EEF6EF;
+            transition: background 0.3s ease,transform 0.2s ease;
+            // border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #A5C7B7;
+
+
+
+
+            &:hover{
+                 // background-color: #f2f2f2;
+                background-color: #D6EDE2;
+                transform: translateY(-2px);
+
+            }
+
+        }
+
+    }
         .upcoming-title{
             display: flex;
             align-items: center;
@@ -17,20 +79,6 @@
                 color: #2F4F4F;   /* deep nature text */
             }
 
-            span{
-                height: 35px;
-                width: 55px;
-                background-color: #D6EDE2;  /* calm light green */
-                border: 1px solid #A5C7B7;  /* theme border */
-                border-radius: 5px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                margin-left: 20px;
-                font-weight: normal;
-                font-size: 30px;
-                color: #2F4F4F;
-            }
         }
 
         .home-top{

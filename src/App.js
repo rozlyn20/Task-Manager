@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router ,Routes,Route} from "react-router-dom";
 import Home from './pages/homepage/Home'
 import Day from './pages/day/Day'
+import TomDay from './pages/tomDay/TomDay'
 import Sticky from './pages/sticky/Sticky'
 import Welcome from './pages/welcome/Welcome'
 import Register from './pages/register/Register'
@@ -15,6 +16,8 @@ const App = () => {
       <Route path="*" element={<Welcome/>}/>
       <Route path="/home" element={<Home/>}/>
       <Route path="/day" element={<Day/>}/>
+      <Route path="/tomDay" element={<TomDay/>}/>
+
       <Route path="/calendar" element={<MyCalendar/>}/>
       <Route path="/sticky" element={<Sticky/>}/>
       <Route path="/register" element={<Register/>}/>

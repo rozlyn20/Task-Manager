@@ -1,23 +1,24 @@
 import React from 'react'
-import './day.scss';
-import Today from '../../components/today/Today';
+import './tomDay.scss';
+import Tomorrow from '../../components/tomorrow/Tomorrow';
 import Sidebar from '../../components/sidebar/Sidebar';
 
 
-const Day = () => {
+const TomDay = () => {
   return (
-    <div className="day">
+    <div className="tomday">
         <Sidebar/>
     <div className="dayContainer">
         <div className="today-title">
-            <p>Today</p>
+            <p>Tomorrow</p>
+           
 
         </div>
-        <Today/>
+        <Tomorrow/>
       
     </div>
     </div>
   )
 }
 
-export default Day
+export default TomDay

@@ -3,12 +3,16 @@ import "./new.scss";
 import { Add } from "@mui/icons-material";
 import { useState ,useEffect} from "react";
 import axios from "axios";
-
-const New = ({ onClose, fetchTasks, task   }) => {
+import { format } from "date-fns";
+const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Personal");
-  const [dueDate, setDueDate] = useState("");
+  const [dueDate, setDueDate] = useState(
+  selectedDate
+    ? format(selectedDate, "yyyy-MM-dd")
+    : ""
+);
 
   useEffect(() => {
   if (task) {

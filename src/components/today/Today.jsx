@@ -11,6 +11,18 @@ const Today = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const todayTasks = tasks.filter((task) => {
+  const today = new Date();
+
+  const taskDate = new Date(task.dueDate);
+
+  return (
+    taskDate.getDate() === today.getDate() &&
+    taskDate.getMonth() === today.getMonth() &&
+    taskDate.getFullYear() === today.getFullYear()
+  );
+});
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -61,7 +73,7 @@ const Today = () => {
     <div className="today">
       <p className="title"> Today </p>
       <ul>
-        <li
+        {/* <li
           style={{ border: "1px solid #e6e6e6" }}
           onClick={() => {
             setShowEditor(true);
@@ -69,8 +81,8 @@ const Today = () => {
         >
           <Add />
           <span style={{ marginLeft: "10px" }}>Add New Task</span>
-        </li>
-        {tasks.map((task) => (
+        </li> */}
+        {todayTasks.map((task) => (
           <li key={task._id}>
             <input
               type="checkbox"

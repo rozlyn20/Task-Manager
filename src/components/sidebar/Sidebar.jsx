@@ -31,15 +31,22 @@ const Sidebar = () => {
         
         <li>
           <NavigateNext className="icon"/>
-            <span>Upcoming</span>
-            <div className="counter">5</div>
+            <span>Home</span>
+            
               </li>
         </Link>
         <Link to="/day" style={{textDecoration:"none"}}>
             <li>
               <Checklist className="icon"/>
                 <span> Today</span>
-                <div className="counter">4</div>
+                
+            </li>
+         </Link>
+         <Link to="/tomDay" style={{textDecoration:"none"}}>
+            <li>
+              <Checklist className="icon"/>
+                <span> Tomorrow</span>
+                
             </li>
          </Link>
           <Link to="/calendar" style={{textDecoration:"none"}}>
