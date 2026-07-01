@@ -1,71 +1,206 @@
-# Getting Started with Create React App
+# 🧠 Productive Mind
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern **MERN Stack Task Management** application designed to help users organize their daily work, manage deadlines, and boost productivity through an intuitive and responsive interface.
 
-## Available Scripts
+> 🚧 **Status:** Currently under active development.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## ✨ Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ✅ Task Management
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+* Create new tasks
+* Edit existing tasks
+* Delete tasks
+* Mark tasks as completed
+* Add task descriptions
+* Set due dates
+* Organize tasks using categories
 
-### `npm test`
+### 📅 Smart Views
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* **Home Dashboard**
+* **Today** – Displays tasks due today
+* **Tomorrow** – Displays tasks due tomorrow
+* **Calendar View** – View tasks on an interactive calendar
 
-### `npm run build`
+### 🔐 Authentication
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* User Registration
+* User Login
+* JWT-based Authentication
+* Protected Routes *(In Progress)*
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 🎨 User Interface
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Clean and responsive design
+* Modern productivity-focused layout
+* Category-based task organization
+* Interactive calendar integration
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🛠 Tech Stack
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Frontend
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* React.js
+* React Router
+* Axios
+* SCSS / CSS
+* React Big Calendar
+* date-fns
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Backend
 
-## Learn More
+* Node.js
+* Express.js
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Database
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* MongoDB Atlas
+* Mongoose
 
-### Code Splitting
+### Authentication
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* JSON Web Tokens (JWT)
+* bcrypt.js
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## 📂 Project Structure
 
-### Making a Progressive Web App
+```text
+Task-Manager/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── assets/
+│   │   └── App.jsx
+│   └── package.json
+│
+├── backend/
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── middleware/
+│   ├── server.js
+│   └── package.json
+│
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🚀 Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Clone the repository
 
-### Deployment
+```bash
+git clone https://github.com/rozlyn20/Task-Manager.git
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Install dependencies
 
-### `npm run build` fails to minify
+#### Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"Task management web app" 
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+#### Backend
+
+```bash
+cd backend
+npm install
+npm run dev
+```
+
+---
+
+## 🔑 Environment Variables
+
+Create a `.env` file inside the backend folder.
+
+```env
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+PORT=5000
+```
+
+---
+
+## 📸 Screenshots
+
+> Screenshots will be added after the UI is finalized.
+
+---
+
+## 🎯 Current Progress
+
+* [x] React Frontend
+* [x] Express Backend
+* [x] MongoDB Atlas Integration
+* [x] REST API
+* [x] Create Tasks
+* [x] Update Tasks
+* [x] Delete Tasks
+* [x] Task Completion
+* [x] Today View
+* [x] Tomorrow View
+* [x] Calendar Integration
+* [x] User Registration
+* [x] User Login
+* [ ] Protected Routes
+* [ ] User Profile
+* [ ] Notifications
+* [ ] AI Productivity Features
+* [ ] Deployment
+
+---
+
+## 💡 Future Enhancements
+
+* Email reminders
+* Push notifications
+* AI-powered task suggestions
+* Recurring tasks
+* Drag-and-drop task management
+* Team collaboration
+* Dark mode
+* Task analytics and productivity insights
+
+---
+
+## 📚 What I Learned
+
+Building this project has helped me gain hands-on experience with:
+
+* Building full-stack applications using the MERN stack
+* Designing and consuming REST APIs
+* MongoDB data modeling with Mongoose
+* Authentication using JWT
+* Password hashing with bcrypt
+* Connecting React with Express APIs
+* State management and asynchronous data fetching
+* Calendar integration for task visualization
+* Git and GitHub workflow
+
+---
+
+## 🤝 Contributing
+
+Contributions, suggestions, and feedback are welcome.
+
+Feel free to fork the repository and submit a pull request.
+
+---
+
+## 📄 License
+
+This project is open-source and available under the MIT License.
