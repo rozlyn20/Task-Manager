@@ -2,7 +2,7 @@ import React from 'react'
 import './stickyNote.scss'
 import { Delete, Edit } from '@mui/icons-material'
 
-const StickyNote = ({title,content,color,onEdit,onDelete}) => {
+const StickyNote = ({title,content,color,summary,onEdit,onDelete,onSummarize}) => {
   return (
     <div className='stickyNote' style={{backgroundColor:color}}>
         <div className="stickyNote-header">
@@ -15,6 +15,17 @@ const StickyNote = ({title,content,color,onEdit,onDelete}) => {
         </div>
         <div className="stickyNote-body">
             <p>{content}</p>
+            <button className="summaryBtn" onClick={onSummarize}>
+  ✨ Summarize
+</button>
+
+{summary && (
+  <div className="summaryBox">
+    <h4>AI Summary</h4>
+    <p>{summary}</p>
+  </div>
+)}
+            
         </div>
       
     </div>

@@ -1,15 +1,20 @@
 const express = require("express");
 const router = express.Router();
+const protect = require("../middleware/authMiddleware");
 
 const Task = require("../models/Task");
-router.put("/:id", async (req, res) => {
+router.put("/:id", protect, async (req, res) => {
     try {
-        const task = await Task.findByIdAndUpdate(
-            req.params.id,
+        const task = await Task.findOneAndUpdate(
+            {
+                _id: req.params.id,
+                user: req.user._id
+            },
             req.body,
-            { new: true }
+            {
+                new: true
+            }
         );
-
         if (!task) {
             return res.status(404).json({
                 message: "Task not found"
@@ -24,9 +29,12 @@ router.put("/:id", async (req, res) => {
         });
     }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", protect, async (req, res) => {
     try {
-        const task = await Task.findByIdAndDelete(req.params.id);
+        const task = await Task.findOneAndDelete({
+            _id: req.params.id,
+            user: req.user._id
+        });
 
         if (!task) {
             return res.status(404).json({
@@ -44,32 +52,35 @@ router.delete("/:id", async (req, res) => {
         });
     }
 });
-router.post("/", async (req, res) => {
+router.post("/", protect, async (req, res) => {
     try {
         const task = await Task.create({
             title: req.body.title,
             description: req.body.description,
             category: req.body.category,
-            dueDate: req.body.dueDate
+            dueDate: req.body.dueDate,
+            user: req.user._id
         });
 
         res.status(201).json(task);
     }
-    catch(error){
+    catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
         });
     }
 });
-router.get("/", async (req, res) => {
+router.get("/", protect, async (req, res) => {
     try {
-        const tasks = await Task.find();
+        const tasks = await Task.find({
+            user: req.user._id
+        });
 
         res.json(tasks);
     }
-    catch(error){
+    catch (error) {
         res.status(500).json({
-            message:error.message
+            message: error.message
         });
     }
 });
