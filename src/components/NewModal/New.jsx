@@ -28,9 +28,9 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
 
   const saveTask = async () => {
   try {
-
+const token = localStorage.getItem("token");
     if (task) {
-      const token = localStorage.getItem("token");
+      
 
       await axios.put(
   `http://localhost:5000/api/tasks/${task._id}`,
@@ -98,7 +98,7 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
 
           <div className="center">
             <ul>
-              <li>
+              {/* <li>
                 <p>Category</p>
                 <select
                   name="list"
@@ -110,7 +110,7 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
                   <option value="Work">Work</option>
                   <option value="Other">Other</option>
                 </select>
-              </li>
+              </li> */}
               <li>
                 <p>Due date</p>
                 <input
@@ -121,7 +121,7 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
                   onChange={(e) => setDueDate(e.target.value)}
                 />
               </li>
-              <li>
+              {/* <li>
                 <p>Tags</p>
                 <div className="tags">
                   <select
@@ -163,9 +163,9 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
                   holdong trl(cmd on mac). Want to add new tag? Go to the
                   sidebar
                 </p>
-              </li>
+              </li> */}
             </ul>
-            <div className="subtasks">
+            {/* <div className="subtasks">
               <p className="sub">Subtasks: </p>
               <ul>
                 <li>
@@ -179,7 +179,7 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
                   <span> Add New Subtask</span>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
           <div className="bottom">
             <button className="cancel" onClick={onClose}>

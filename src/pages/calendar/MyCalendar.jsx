@@ -44,7 +44,15 @@ const navigate = useNavigate();
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/tasks");
+        const token = localStorage.getItem("token");
+      const response = await axios.get(
+      "http://localhost:5000/api/tasks",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
       setTasks(response.data);
     } catch (error) {

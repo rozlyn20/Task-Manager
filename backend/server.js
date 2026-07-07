@@ -2,8 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const cors = require("cors");
 dotenv.config();
+const stickyRoutes = require("./routes/stickyRoutes");
 const aiRoutes = require("./routes/aiRoutes");
-
 const connectDB = require("./config/db");
 const taskRoutes = require("./routes/taskRoutes");
 
@@ -18,6 +18,7 @@ app.use("/api/tasks", taskRoutes);
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
+app.use("/api/sticky", stickyRoutes);
 app.use("/api/ai", aiRoutes);
 
 app.get("/", (req, res) => {

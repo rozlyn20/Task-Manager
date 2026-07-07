@@ -67,7 +67,7 @@ const Sidebar = () => {
             
       
       
-      <p className="title">
+      {/* <p className="title">
         Category
       </p>
       
@@ -88,9 +88,9 @@ const Sidebar = () => {
             <div className="counter">8</div>
         </li>
       </ul>
-      
+       */}
 
-      <p className="title">Tags</p>
+      {/* <p className="title">Tags</p>
       <div className="tags">
         <div className="tag" style={{backgroundColor:"blue"}}>
           <span style={{color:"white"}}>TAG 1</span>
@@ -102,7 +102,7 @@ const Sidebar = () => {
             <input type="text" placeholder='New Tag name' style={{border:"none", background:"transparent",outline:"None", width:"80%",color:"#333"}}/>
             <Add style={{fontSize:"18px",cursor:"pointer"}}/>
         </div>
-      </div>
+      </div> */}
      </div>
      <br/>
       <div className="bottom">

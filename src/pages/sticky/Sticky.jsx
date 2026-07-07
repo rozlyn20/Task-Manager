@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./sticky.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import StickyNote from "../../components/StickyNote/StickyNote";
@@ -8,45 +8,32 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const Sticky = () => {
-  const [wall, setWall] = useState([
-    {
-      id: 1,
-      title: "Math exam",
-      content: "review chhapter 1-5",
-      color: "#fce38a",
-      summary: "",
-    },
-    {
-      id: 2,
-      title: "Djanggo project",
-      content: "implement payment system",
-      color: "#e19aceff",
-      summary: "",
-    },
-    {
-      id: 3,
-      title: "Math exam",
-      content:
-        "ljfogjrgv teu rw ruwcr03t  80ew ecr w uw40ti k  0ruw0 tjw x 3yrwrewnr aur9 a n4m,n f9ewurorl 4r w4r 9ur292ur 9u ru93qeuhdhgckn;j resj jwhferjgk zflsjfjzjr jrrkgdorr tru lzj prs kfk rio  fisd fslpff kn ifj sfddvn gsr jp kn t ljfogjrgv teu rw ruwcr03t  80ew ecr w uw40ti k  0ruw0 tjw x 3yrwrewnr aur9 a n4m,n f9ewurorl 4r w4r 9ur292ur 9u ru93qeuhdhgckn;j resj jwhferjgk zflsjfjzjr jrrkgdorr tru lzj prs kfk rio  fisd fslpff kn ifj sfddvn gsr jp kn t",
-      color: "#a773d1ff",
-      summary: "",
-    },
-  ]);
+  const [wall, setWall] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
-// useEffect(() => {
+  const fetchStickies = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-//     const token = localStorage.getItem("token");
+    const res = await axios.get(
+      "http://localhost:5000/api/sticky",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-//     if (!token) {
-//         navigate("/login");
-//     }
+    setWall(res.data);
 
-// }, [navigate]);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-// useEffect(() => {
-//     fetchTasks();
-// }, []);
+useEffect(() => {
+      fetchStickies();
+}, []);
   const openAddModal = () => {
     setEditingNote(null);
     setModalOpen(true);
@@ -59,28 +46,68 @@ const Sticky = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-  const handleSubmit = (data) => {
+  const handleSubmit = async (data) => {
+  try {
+    const token = localStorage.getItem("token");
+
     if (editingNote) {
-      setWall((prev) =>
-        prev.map((note) =>
-          note.id === editingNote.id ? { ...note, ...data } : note,
-        ),
+
+      await axios.put(
+        `http://localhost:5000/api/sticky/${editingNote._id}`,
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
+
     } else {
-      const newNote = {
-        id: wall.length + 1,
-        ...data,
-        summary: "",
-      };
-      setWall((prev) => [...prev, newNote]);
+
+      await axios.post(
+        "http://localhost:5000/api/sticky",
+        data,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
     }
+
+    fetchStickies();
     closeModal();
-  };
-  const handleDelete = (id) => {
-    if (window.confirm("Are u sure u want todelete thhe sticky note")) {
-      setWall((prev) => prev.filter((note) => note.id !== id));
-    }
-  };
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+const handleDelete = async (id) => {
+
+  if (!window.confirm("Delete this sticky note?"))
+    return;
+
+  try {
+
+    const token = localStorage.getItem("token");
+
+    await axios.delete(
+      `http://localhost:5000/api/sticky/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    fetchStickies();
+
+  } catch (error) {
+    console.log(error);
+  }
+
+};
   const handleSummarize = async (id, content) => {
     try {
         const res = await axios.post(
@@ -92,7 +119,7 @@ const Sticky = () => {
 
         setWall((prev) =>
             prev.map((note) =>
-                note.id === id
+                note._id === id
                     ? { ...note, summary: res.data.summary }
                     : note
             )
@@ -112,14 +139,14 @@ const Sticky = () => {
         <div className="row">
           {wall.map((note) => (
             <StickyNote
-              key={note.id}
+              key={note._id}
               title={note.title}
               content={note.content}
               color={note.color}
               summary={note.summary}
-              onSummarize={() => handleSummarize(note.id,note.content)}
+              onSummarize={() => handleSummarize(note._id,note.content)}
               onEdit={() => openEditModal(note)}
-              onDelete={() => handleDelete(note.id)}
+              onDelete={() => handleDelete(note._id)}
             />
           ))}
           <div

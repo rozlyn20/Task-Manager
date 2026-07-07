@@ -41,8 +41,16 @@ useEffect(() => {
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/tasks");
+     const token = localStorage.getItem("token");
 
+        const response = await axios.get(
+            "http://localhost:5000/api/tasks",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
       setTasks(response.data);
     } catch (error) {
       console.log(error);
@@ -50,8 +58,16 @@ useEffect(() => {
   };
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+       const token = localStorage.getItem("token");
 
+    await axios.delete(
+      `http://localhost:5000/api/tasks/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
       fetchTasks();
 
       if (openTask === id) {
@@ -63,10 +79,19 @@ useEffect(() => {
   };
   const toggleComplete = async (task) => {
     try {
-      await axios.put(`http://localhost:5000/api/tasks/${task._id}`, {
-        completed: !task.completed,
-      });
+      const token = localStorage.getItem("token");
 
+    await axios.put(
+      `http://localhost:5000/api/tasks/${task._id}`,
+      {
+        completed: !task.completed,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
       fetchTasks();
     } catch (error) {
       console.log(error);
