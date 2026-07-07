@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './register.scss'
 import { Link,useNavigate} from 'react-router-dom'
+import axios from "axios";
 const Register = () => {
     const [formData,setFormData]=useState({
     username:"",
@@ -15,16 +16,32 @@ const handleChange=(e)=>{
         ...formData,[e.target.name]:e.target.value,
     })
 }
-const handleSubmit=(e)=>{
+const handleSubmit = async (e) => {
     e.preventDefault();
-    if(formData.password !== formData.confirmPassword){
-        setError("Passwords do not match")
+
+    if (formData.password !== formData.confirmPassword) {
+        setError("Passwords do not match");
         return;
     }
-    setError("")
-    alert("Registration successful")
-    navigate("/login")
-}
+
+    try {
+        await axios.post(
+            "http://localhost:5000/api/auth/register",
+            {
+                name: formData.username,
+                email: formData.email,
+                password: formData.password
+            }
+        );
+
+        alert("Registration successful");
+        navigate("/login");
+    } catch (err) {
+        setError(
+            err.response?.data?.message || "Registration failed"
+        );
+    }
+};
   return (
     <div className='register'>
       <div className="right">

@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './login.scss'
+import axios from "axios";
 import { Link,useNavigate} from 'react-router-dom'
 
 const Login = () => {
     const [formData,setFormData]=useState({
-        username:"",
+        email:"",
         password:"",
     })
     const [error,setError]=useState("");
@@ -14,18 +15,33 @@ const Login = () => {
         ...formData,[e.target.name]:e.target.value,
     })
 }
-const handleSubmit=(e)=>{
+const handleSubmit = async (e) => {
     e.preventDefault();
-    const {username,password}=formData;
-    if(username.trim()==="" || password.trim() === ""){
-        setError("please fill in noth fields");
-        return;
+
+    try {
+        const res = await axios.post(
+            "http://localhost:5000/api/auth/login",
+            {
+                email: formData.email,
+                password: formData.password
+            }
+        );
+
+        localStorage.setItem("token", res.data.token);
+
+        alert("Login Successful");
+
+        navigate("/home");
+
+    } catch (err) {
+
+        setError(
+            err.response?.data?.message || "Login failed"
+        );
+
     }
-    setError("")
-    alert("login succesful")
-    navigate("/home");
-}
-  return (
+};
+return (
     <div className='login'>
       <div className="right">
         <img
@@ -38,7 +54,7 @@ const handleSubmit=(e)=>{
             <div className="wrapper">
                 <h1>Sign In</h1>
                 
-                <input type="text" name="username" placeholder='username' onChange={handleChange} autoComplete='username' required />
+                {/* <input type="text" name="username" placeholder='username' onChange={handleChange} autoComplete='username' required /> */}
                 <input type="email" name="email" placeholder='email' onChange={handleChange} autoComplete='current-password' required />
                 <input type="password" name="password" placeholder='password' onChange={handleChange} required />
                 

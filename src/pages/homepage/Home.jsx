@@ -4,14 +4,17 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import New from "../../components/NewModal/New";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
 
 const Home = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
   const upcomingTasks = tasks.filter((task) => {
   const today = new Date();
+
 
   const taskDate = new Date(task.dueDate);
 
@@ -23,14 +26,31 @@ const Home = () => {
     taskDate <= threeDaysLater
   );
 });
+useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        navigate("/login");
+    }
+
+}, [navigate]);
   useEffect(() => {
     fetchTasks();
   }, []);
 
   const fetchTasks = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/tasks");
+      const token = localStorage.getItem("token");
 
+        const response = await axios.get(
+            "http://localhost:5000/api/tasks",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
       setTasks(response.data);
     } catch (error) {
       console.log(error);

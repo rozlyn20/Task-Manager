@@ -5,6 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
 import { format, parse, startOfWeek, getDay, addDays } from "date-fns";
 import enUS from "date-fns/locale/en-US";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import New from "../../components/NewModal/New";
 import { useEffect } from "react";
@@ -26,7 +27,17 @@ const MyCalendar = () => {
   const [date, setDate] = useState(new Date());
   const [showEditor, setShowEditor] = useState(false);
 const [selectedDate, setSelectedDate] = useState(null);
+const navigate = useNavigate();
   const [currentView, setCurrentView] = useState(Views.MONTH);
+  useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        navigate("/login");
+    }
+
+}, [navigate]);
   useEffect(() => {
     fetchTasks();
   }, []);

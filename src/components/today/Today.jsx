@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, } from "react";
+import { useNavigate } from "react-router-dom";
 
 import "./today.scss";
 import { Add, NavigateNext, TodayOutlined } from "@mui/icons-material";
@@ -11,8 +12,10 @@ const Today = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+   const navigate = useNavigate();
   const todayTasks = tasks.filter((task) => {
   const today = new Date();
+ 
 
   const taskDate = new Date(task.dueDate);
 
@@ -22,6 +25,15 @@ const Today = () => {
     taskDate.getFullYear() === today.getFullYear()
   );
 });
+useEffect(() => {
+
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        navigate("/login");
+    }
+
+}, [navigate]);
 
   useEffect(() => {
     fetchTasks();

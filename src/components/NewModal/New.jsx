@@ -30,28 +30,39 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
   try {
 
     if (task) {
+      const token = localStorage.getItem("token");
 
       await axios.put(
-        `http://localhost:5000/api/tasks/${task._id}`,
-        {
-          title,
-          description,
-          category,
-          dueDate
-        }
-      );
+  `http://localhost:5000/api/tasks/${task._id}`,
+  {
+    title,
+    description,
+    category,
+    dueDate
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
 
     } else {
 
       await axios.post(
-        "http://localhost:5000/api/tasks",
-        {
-          title,
-          description,
-          category,
-          dueDate
-        }
-      );
+  "http://localhost:5000/api/tasks",
+  {
+    title,
+    description,
+    category,
+    dueDate
+  },
+  {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+);
 
     }
 

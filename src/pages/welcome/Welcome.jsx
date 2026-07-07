@@ -16,11 +16,18 @@ const Welcome = () => {
             <p className="body">
                 Organize your tasks,manage your time,and boost your productivity with intuitive interface
             </p>
-            <button className='btn' style= {{color:"white"}}>
-               <Link to="/register" style ={{textDecoration:"none",color:"black"}}>
-                Get started
-                </Link>
-            </button>
+           <Link
+  to="/register"
+  className="btn"
+  style={{
+    textDecoration: "none",
+    color: "white",
+    display: "inline-block",
+    textAlign: "center"
+  }}
+>
+  Get Started
+</Link>
             <p>
                 Already have an account?
                 <span style={{

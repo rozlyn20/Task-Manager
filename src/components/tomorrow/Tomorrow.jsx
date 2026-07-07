@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import "./tomorrow.scss";
 import { Add, NavigateNext, TodayOutlined } from "@mui/icons-material";
 import New from "../NewModal/New";
@@ -11,6 +11,7 @@ const Tomorrow = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
 
 const tomorrowTasks = tasks.filter((task) => {
   const tomorrow = new Date();
@@ -25,7 +26,15 @@ const tomorrowTasks = tasks.filter((task) => {
   );
 });
 
+useEffect(() => {
 
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        navigate("/login");
+    }
+
+}, [navigate]);
   useEffect(() => {
     fetchTasks();
   }, []);

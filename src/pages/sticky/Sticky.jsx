@@ -5,6 +5,7 @@ import StickyNote from "../../components/StickyNote/StickyNote";
 import StickyModal from "../../components/StickyModal/StickyModal";
 import { Add } from "@mui/icons-material";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Sticky = () => {
   const [wall, setWall] = useState([
@@ -33,7 +34,19 @@ const Sticky = () => {
   ]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
+// useEffect(() => {
 
+//     const token = localStorage.getItem("token");
+
+//     if (!token) {
+//         navigate("/login");
+//     }
+
+// }, [navigate]);
+
+// useEffect(() => {
+//     fetchTasks();
+// }, []);
   const openAddModal = () => {
     setEditingNote(null);
     setModalOpen(true);
