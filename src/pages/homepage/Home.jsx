@@ -44,7 +44,7 @@ useEffect(() => {
       const token = localStorage.getItem("token");
 
         const response = await axios.get(
-            "http://localhost:5000/api/tasks",
+            `${process.env.REACT_APP_API_URL}/api/tasks`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

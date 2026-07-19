@@ -44,7 +44,7 @@ useEffect(() => {
      const token = localStorage.getItem("token");
 
         const response = await axios.get(
-            "http://localhost:5000/api/tasks",
+            "/api/tasks",
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -61,7 +61,7 @@ useEffect(() => {
        const token = localStorage.getItem("token");
 
     await axios.delete(
-      `http://localhost:5000/api/tasks/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/tasks/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -82,7 +82,7 @@ useEffect(() => {
       const token = localStorage.getItem("token");
 
     await axios.put(
-      `http://localhost:5000/api/tasks/${task._id}`,
+      `${process.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
       {
         completed: !task.completed,
       },

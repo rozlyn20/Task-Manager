@@ -10,7 +10,14 @@ const taskRoutes = require("./routes/taskRoutes");
 connectDB();
 
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000", // local development
+    ],
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 

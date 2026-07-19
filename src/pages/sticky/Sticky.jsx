@@ -16,7 +16,7 @@ const Sticky = () => {
     const token = localStorage.getItem("token");
 
     const res = await axios.get(
-      "http://localhost:5000/api/sticky",
+      `${process.env.REACT_APP_API_URL}/api/sticky`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,7 +53,7 @@ useEffect(() => {
     if (editingNote) {
 
       await axios.put(
-        `http://localhost:5000/api/sticky/${editingNote._id}`,
+        `${process.env.REACT_APP_API_URL}api/sticky/${editingNote._id}`,
         data,
         {
           headers: {
@@ -65,7 +65,7 @@ useEffect(() => {
     } else {
 
       await axios.post(
-        "http://localhost:5000/api/sticky",
+        `${process.env.REACT_APP_API_URL}/api/sticky`,
         data,
         {
           headers: {
@@ -93,7 +93,7 @@ const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
 
     await axios.delete(
-      `http://localhost:5000/api/sticky/${id}`,
+      `${process.env.REACT_APP_API_URL}/api/sticky/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,7 +111,7 @@ const handleDelete = async (id) => {
   const handleSummarize = async (id, content) => {
     try {
         const res = await axios.post(
-            "http://localhost:5000/api/ai/summarize",
+            `${process.env.REACT_APP_API_URL}/api/ai/summarize`,
             {
                 content,
             }
