@@ -14,6 +14,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000", // local development
+       "https://task-manager-rozlyn.vercel.app",
     ],
     credentials: true,
   })
