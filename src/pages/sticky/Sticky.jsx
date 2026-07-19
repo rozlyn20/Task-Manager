@@ -5,7 +5,7 @@ import StickyNote from "../../components/StickyNote/StickyNote";
 import StickyModal from "../../components/StickyModal/StickyModal";
 import { Add } from "@mui/icons-material";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+
 
 const Sticky = () => {
   const [wall, setWall] = useState([]);

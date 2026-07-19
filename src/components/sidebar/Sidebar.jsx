@@ -1,7 +1,7 @@
 import React from 'react'
 import "./sidebar.scss";
 import { useNavigate,Link } from 'react-router-dom';
-import {Add, CalendarMonthOutlined, Checklist, Logout, Menu,NavigateNext, SearchOutlined, StickyNote2} from '@mui/icons-material';
+import {CalendarMonthOutlined, Checklist, Logout, Menu,NavigateNext, SearchOutlined, StickyNote2} from '@mui/icons-material';
 
 const Sidebar = () => {
  const navigate =useNavigate();

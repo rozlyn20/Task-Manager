@@ -4,7 +4,7 @@ import { useEffect, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./today.scss";
-import { Add, NavigateNext, TodayOutlined } from "@mui/icons-material";
+import {  NavigateNext, TodayOutlined } from "@mui/icons-material";
 import New from "../NewModal/New";
 
 const Today = () => {

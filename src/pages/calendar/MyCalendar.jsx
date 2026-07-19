@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./calendar.scss";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Calendar, dateFnsLocalizer, Views } from "react-big-calendar";
-import { format, parse, startOfWeek, getDay, addDays } from "date-fns";
+import { format, parse, startOfWeek, getDay} from "date-fns";
 import enUS from "date-fns/locale/en-US";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
