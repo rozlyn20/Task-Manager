@@ -1,30 +1,12 @@
-// Centralized API Base URL configuration for deployment compatibility
+// Centralized API Base URL configuration for Create React App
 const getApiUrl = () => {
-  // 1. Check Create React App (react-scripts) environment variables
-  if (typeof process !== "undefined" && process.env) {
-    if (process.env.REACT_APP_API_URL) {
-      return process.env.REACT_APP_API_URL;
-    }
-    if (process.env.VITE_API_URL) {
-      return process.env.VITE_API_URL;
-    }
-  }
-
-  // 2. Check Vite import.meta.env environment variables
-  try {
-    if (typeof import.meta !== "undefined" && import.meta.env) {
-      if (import.meta.env.VITE_API_URL) {
-        return import.meta.env.VITE_API_URL;
-      }
-      if (import.meta.env.REACT_APP_API_URL) {
-        return import.meta.env.REACT_APP_API_URL;
-      }
-    }
-  } catch (e) {
-    // Ignore reference error if import.meta is unavailable
-  }
-
-  return "";
+  // Direct process.env access ensures Create React App (react-scripts / Webpack)
+  // statically inlines the environment variable during npm run build.
+  return process.env.REACT_APP_API_URL || process.env.VITE_API_URL || "";
 };
 
 export const API_BASE_URL = getApiUrl().replace(/\/$/, "");
+
+// Production debugging logs (viewable in browser DevTools console)
+console.log("[Deployment Debug] process.env.REACT_APP_API_URL:", process.env.REACT_APP_API_URL);
+console.log("[Deployment Debug] Resolved API_BASE_URL:", API_BASE_URL);

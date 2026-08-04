@@ -19,9 +19,12 @@ const Login = () => {
 const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const targetUrl = `${API_BASE_URL}/api/auth/login`;
+    console.log("[Deployment Debug Login] Target URL:", targetUrl);
+
     try {
         const res = await axios.post(
-            `${API_BASE_URL}/api/auth/login`,
+            targetUrl,
             {
                 email: formData.email,
                 password: formData.password

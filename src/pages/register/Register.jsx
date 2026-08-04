@@ -25,9 +25,12 @@ const handleSubmit = async (e) => {
         return;
     }
 
+    const targetUrl = `${API_BASE_URL}/api/auth/register`;
+    console.log("[Deployment Debug Register] Target URL:", targetUrl);
+
     try {
         await axios.post(
-            `${API_BASE_URL}/api/auth/register`,
+            targetUrl,
             {
                 name: formData.username,
                 email: formData.email,
