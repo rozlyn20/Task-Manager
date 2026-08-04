@@ -1,54 +1,63 @@
 # 🧠 Productive Mind
 
-A modern **MERN Stack Task Management** application designed to help users organize their daily work, manage deadlines, and boost productivity through an intuitive and responsive interface.
-
-> 🚧 **Status:** Currently under active development.
+A full-stack **MERN Task Management Application** built to help users organize their daily tasks, manage deadlines, and improve productivity through an intuitive and responsive interface.
 
 ---
 
-## ✨ Features
+# 🌐 Live Demo
 
-### ✅ Task Management
+> **Frontend:** `🔗 https://task-manager-blush-rho.vercel.app/`
+
+> **Backend API:** ` 🔗 https://task-manager-9f8u.onrender.com`
+
+> **GitHub Repository:** `🔗 https://github.com/rozlyn20/Task-Manager`
+
+---
+
+# ✨ Features
+
+## 📋 Task Management
 
 * Create new tasks
 * Edit existing tasks
 * Delete tasks
 * Mark tasks as completed
+* Organize tasks using categories
 * Add task descriptions
 * Set due dates
-* Organize tasks using categories
 
-### 📅 Smart Views
+## 📅 Productivity Views
 
-* **Home Dashboard**
-* **Today** – Displays tasks due today
-* **Tomorrow** – Displays tasks due tomorrow
-* **Calendar View** – View tasks on an interactive calendar
+* Dashboard
+* Today View
+* Tomorrow View
+* Calendar View
+* Category-wise organization
 
-### 🔐 Authentication
+## 🔐 Authentication
 
 * User Registration
 * User Login
-* JWT-based Authentication
-* Protected Routes *(In Progress)*
+* Password hashing using bcrypt
+* JWT Authentication
+* Protected API Routes
 
-### 🎨 User Interface
+## 📱 Responsive Design
 
-* Clean and responsive design
-* Modern productivity-focused layout
-* Category-based task organization
-* Interactive calendar integration
+* Mobile-friendly interface
+* Clean productivity-focused UI
+* Modern card-based layout
 
 ---
 
-## 🛠 Tech Stack
+# 🛠 Tech Stack
 
 ### Frontend
 
 * React.js
 * React Router
 * Axios
-* SCSS / CSS
+* SCSS
 * React Big Calendar
 * date-fns
 
@@ -64,143 +73,181 @@ A modern **MERN Stack Task Management** application designed to help users organ
 
 ### Authentication
 
-* JSON Web Tokens (JWT)
+* JSON Web Token (JWT)
 * bcrypt.js
+
+### Deployment
+
+* Vercel
+* Render
 
 ---
 
-## 📂 Project Structure
+# 📸 Screenshots
+
+### 🏠 Dashboard
+
+> <img width="1324" height="461" alt="image" src="https://github.com/user-attachments/assets/666bbe02-721f-4e10-a3fa-4948386c0ea3" />
+
+
+
+---
+
+### ✅ Task Management
+
+><img width="902" height="612" alt="image" src="https://github.com/user-attachments/assets/b6effadd-a509-45f2-854e-7f9c42a1e789" />
+
+
+![Tasks](images/tasks.png)
+
+---
+
+### 📅 Calendar View
+
+> <img width="1094" height="556" alt="image" src="https://github.com/user-attachments/assets/a30254a4-de62-4941-a6c5-929ca9791171" />
+
+
+
+
+---
+
+### 🔐 Authentication
+
+><img width="1346" height="582" alt="image" src="https://github.com/user-attachments/assets/6896d697-bf00-41f1-8d85-c08d066f4107" />
+
+
+
+---
+
+# 📂 Project Structure
 
 ```text
-Task-Manager/
+Task-Manager
 │
-├── frontend/
-│   ├── src/
-│   │   ├── components/
-│   │   ├── pages/
-│   │   ├── assets/
-│   │   └── App.jsx
-│   └── package.json
-│
-├── backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── middleware/
+├── backend
+│   ├── controllers
+│   ├── middleware
+│   ├── models
+│   ├── routes
 │   ├── server.js
 │   └── package.json
 │
+├── src
+│   ├── components
+│   ├── pages
+│   ├── assets
+│   ├── styles
+│   └── App.js
+│
+├── public
+├── package.json
 └── README.md
 ```
 
+> **Update this structure if your repository layout is different.**
+
 ---
 
-## 🚀 Getting Started
+# 🚀 Getting Started
 
-### Clone the repository
+## Clone the repository
 
 ```bash
 git clone https://github.com/rozlyn20/Task-Manager.git
 ```
 
-### Install dependencies
-
-#### Frontend
+## Install Frontend Dependencies
 
 ```bash
-cd frontend
 npm install
-npm run dev
 ```
 
-#### Backend
+## Start the Frontend
+
+```bash
+npm start
+```
+
+## Start the Backend
 
 ```bash
 cd backend
 npm install
-npm run dev
+npm start
 ```
 
 ---
 
-## 🔑 Environment Variables
+# 🔑 Environment Variables
 
-Create a `.env` file inside the backend folder.
+Create a `.env` file inside the **backend** folder.
 
 ```env
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
+GEMINI_API_KEY=your_gemini_api_key
+CLIENT_URL=http://localhost:3000
 PORT=5000
 ```
 
 ---
 
-## 📸 Screenshots
+# 🎯 Key Functionalities
 
-> Screenshots will be added after the UI is finalized.
-
----
-
-## 🎯 Current Progress
-
-* [x] React Frontend
-* [x] Express Backend
-* [x] MongoDB Atlas Integration
-* [x] REST API
-* [x] Create Tasks
-* [x] Update Tasks
-* [x] Delete Tasks
-* [x] Task Completion
-* [x] Today View
-* [x] Tomorrow View
-* [x] Calendar Integration
-* [x] User Registration
-* [x] User Login
-* [ ] Protected Routes
-* [ ] User Profile
-* [ ] Notifications
-* [ ] AI Productivity Features
-* [ ] Deployment
+* User Authentication
+* CRUD Operations
+* Task Categorization
+* Calendar Integration
+* Deadline Management
+* Responsive Design
+* REST API Integration
 
 ---
 
-## 💡 Future Enhancements
+# 📈 Learning Outcomes
+
+This project helped me gain practical experience with:
+
+* Building full-stack MERN applications
+* Designing REST APIs
+* MongoDB data modeling with Mongoose
+* JWT Authentication
+* Password encryption using bcrypt
+* Frontend and backend integration
+* Environment variable management
+* Deployment using Vercel and Render
+* Git & GitHub workflow
+
+---
+
+# 🔮 Future Improvements
 
 * Email reminders
 * Push notifications
-* AI-powered task suggestions
+* AI-powered productivity assistant
 * Recurring tasks
 * Drag-and-drop task management
 * Team collaboration
 * Dark mode
-* Task analytics and productivity insights
+* Productivity analytics
 
 ---
 
-## 📚 What I Learned
+# 🤝 Contributing
 
-Building this project has helped me gain hands-on experience with:
+Contributions, suggestions, and feedback are always welcome.
 
-* Building full-stack applications using the MERN stack
-* Designing and consuming REST APIs
-* MongoDB data modeling with Mongoose
-* Authentication using JWT
-* Password hashing with bcrypt
-* Connecting React with Express APIs
-* State management and asynchronous data fetching
-* Calendar integration for task visualization
-* Git and GitHub workflow
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Open a Pull Request
 
 ---
 
-## 🤝 Contributing
+# 📄 License
 
-Contributions, suggestions, and feedback are welcome.
-
-Feel free to fork the repository and submit a pull request.
+This project is licensed under the MIT License.
 
 ---
 
-## 📄 License
-
-This project is open-source and available under the MIT License.
+## ⭐ If you found this project helpful, consider giving it a star on GitHub!
