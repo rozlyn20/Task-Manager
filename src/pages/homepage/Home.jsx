@@ -6,6 +6,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Add } from "@mui/icons-material";
+import { API_BASE_URL } from "../../config";
 
 const Home = () => {
   const [showEditor, setShowEditor] = useState(false);
@@ -44,7 +45,7 @@ useEffect(() => {
       const token = localStorage.getItem("token");
 
         const response = await axios.get(
-            `${process.env.REACT_APP_API_URL}/api/tasks`,
+            `${API_BASE_URL}/api/tasks`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`

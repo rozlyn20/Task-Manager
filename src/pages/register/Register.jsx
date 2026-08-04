@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import './register.scss'
 import { Link,useNavigate} from 'react-router-dom'
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 const Register = () => {
     const [formData,setFormData]=useState({
     username:"",
@@ -26,7 +27,7 @@ const handleSubmit = async (e) => {
 
     try {
         await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/auth/register`,
+            `${API_BASE_URL}/api/auth/register`,
             {
                 name: formData.username,
                 email: formData.email,

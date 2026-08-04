@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import New from "../../components/NewModal/New";
 import { useEffect } from "react";
+import { API_BASE_URL } from "../../config";
 
 const locales = {
   "en-US": enUS,
@@ -46,7 +47,7 @@ const navigate = useNavigate();
     try {
         const token = localStorage.getItem("token");
       const response = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/tasks`,
+      `${API_BASE_URL}/api/tasks`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

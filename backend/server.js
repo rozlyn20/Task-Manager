@@ -10,12 +10,22 @@ const taskRoutes = require("./routes/taskRoutes");
 connectDB();
 
 const app = express();
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://task-manager-rozlyn.vercel.app",
+  ...(process.env.CLIENT_URL ? process.env.CLIENT_URL.split(",") : [])
+].map(url => url.trim().replace(/\/$/, ""));
+
 app.use(
   cors({
-    origin: [
-      "http://localhost:3000", // local development
-       "https://task-manager-rozlyn.vercel.app",
-    ],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes("*")) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
     credentials: true,
   })
 );

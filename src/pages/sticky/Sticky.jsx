@@ -5,6 +5,7 @@ import StickyNote from "../../components/StickyNote/StickyNote";
 import StickyModal from "../../components/StickyModal/StickyModal";
 import { Add } from "@mui/icons-material";
 import axios from "axios";
+import { API_BASE_URL } from "../../config";
 
 
 const Sticky = () => {
@@ -16,7 +17,7 @@ const Sticky = () => {
     const token = localStorage.getItem("token");
 
     const res = await axios.get(
-      `${process.env.REACT_APP_API_URL}/api/sticky`,
+      `${API_BASE_URL}/api/sticky`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -53,7 +54,7 @@ useEffect(() => {
     if (editingNote) {
 
       await axios.put(
-        `${process.env.REACT_APP_API_URL}api/sticky/${editingNote._id}`,
+        `${API_BASE_URL}/api/sticky/${editingNote._id}`,
         data,
         {
           headers: {
@@ -65,7 +66,7 @@ useEffect(() => {
     } else {
 
       await axios.post(
-        `${process.env.REACT_APP_API_URL}/api/sticky`,
+        `${API_BASE_URL}/api/sticky`,
         data,
         {
           headers: {
@@ -93,7 +94,7 @@ const handleDelete = async (id) => {
     const token = localStorage.getItem("token");
 
     await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/sticky/${id}`,
+      `${API_BASE_URL}/api/sticky/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,7 +112,7 @@ const handleDelete = async (id) => {
   const handleSummarize = async (id, content) => {
     try {
         const res = await axios.post(
-            `${process.env.REACT_APP_API_URL}/api/ai/summarize`,
+            `${API_BASE_URL}/api/ai/summarize`,
             {
                 content,
             }

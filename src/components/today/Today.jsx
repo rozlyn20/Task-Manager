@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./today.scss";
 import {  NavigateNext, TodayOutlined } from "@mui/icons-material";
 import New from "../NewModal/New";
+import { API_BASE_URL } from "../../config";
 
 const Today = () => {
   const [openTask, setOpenTask] = useState(null);
@@ -44,7 +45,7 @@ useEffect(() => {
      const token = localStorage.getItem("token");
 
         const response = await axios.get(
-            "/api/tasks",
+            `${API_BASE_URL}/api/tasks`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -61,7 +62,7 @@ useEffect(() => {
        const token = localStorage.getItem("token");
 
     await axios.delete(
-      `${process.env.REACT_APP_API_URL}/api/tasks/${id}`,
+      `${API_BASE_URL}/api/tasks/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -82,7 +83,7 @@ useEffect(() => {
       const token = localStorage.getItem("token");
 
     await axios.put(
-      `${process.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
+      `${API_BASE_URL}/api/tasks/${task._id}`,
       {
         completed: !task.completed,
       },

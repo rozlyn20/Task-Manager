@@ -3,6 +3,7 @@ import "./new.scss";
 import { useState ,useEffect} from "react";
 import axios from "axios";
 import { format } from "date-fns";
+import { API_BASE_URL } from "../../config";
 const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -32,7 +33,7 @@ const token = localStorage.getItem("token");
       
 
       await axios.put(
-  `${process.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
+  `${API_BASE_URL}/api/tasks/${task._id}`,
   {
     title,
     description,
@@ -49,7 +50,7 @@ const token = localStorage.getItem("token");
     } else {
 
       await axios.post(
-  `${process.env.REACT_APP_API_URL}/api/tasks`,
+  `${API_BASE_URL}/api/tasks`,
   {
     title,
     description,
