@@ -1,0 +1,189 @@
+@use "./tokens" as *;
+
+// ---------------------------------------------------------------------------
+// Reset & base
+// ---------------------------------------------------------------------------
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $bg-app;
+  color: $text-primary;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+// ---------------------------------------------------------------------------
+// Scrollbars — subtle, modern
+// ---------------------------------------------------------------------------
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $gray-300;
+  border-radius: $radius-full;
+
+  &:hover {
+    background-color: $gray-400;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shared animation keyframes
+// ---------------------------------------------------------------------------
+@keyframes app-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes app-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes app-shimmer {
+  0% {
+    background-position: -320px 0;
+  }
+  100% {
+    background-position: 320px 0;
+  }
+}
+
+@keyframes app-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Shared utility classes — used by loading / empty states across views
+// ---------------------------------------------------------------------------
+
+// Small inline spinner, e.g. inside a button or a loading row
+.app-spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid rgba(79, 70, 229, 0.2);
+  border-top-color: $primary;
+  border-radius: 50%;
+  animation: app-spin 0.7s linear infinite;
+}
+
+.app-spinner--light {
+  border-color: rgba(255, 255, 255, 0.35);
+  border-top-color: #fff;
+}
+
+// A full-width loading row for lists (Today / Tomorrow / Home)
+.app-loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+  padding: $space-10 $space-4;
+  color: $text-secondary;
+  font-size: 14px;
+}
+
+// Skeleton placeholder blocks
+.app-skeleton {
+  border-radius: $radius-md;
+  background: linear-gradient(90deg, $gray-100 25%, $gray-50 37%, $gray-100 63%);
+  background-size: 400px 100%;
+  animation: app-shimmer 1.4s ease infinite;
+}
+
+.app-skeleton-row {
+  height: 52px;
+  margin-bottom: $space-3;
+}
+
+// Friendly empty state block re-used in Today / Tomorrow / Home / Sticky wall
+.app-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: $space-2;
+  padding: $space-10 $space-4;
+  color: $text-secondary;
+  animation: app-fade-in 0.35s ease;
+
+  .app-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: $radius-full;
+    background: $primary-light;
+    color: $primary;
+    margin-bottom: $space-2;
+
+    svg {
+      font-size: 26px;
+    }
+  }
+
+  .app-empty-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: $text-primary;
+  }
+
+  .app-empty-subtitle {
+    font-size: 13px;
+    color: $text-muted;
+    max-width: 260px;
+  }
+}

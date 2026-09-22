@@ -1,80 +1,107 @@
+@use "../../styles/tokens" as *;
+
 .modalOverlay{
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(2px);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 100;
+    animation: app-fade-in 0.2s ease;
 
 }
 
 .modalContent{
-    background: white;
-    padding: 30px 40px;
-    border-radius: 4px;
-    width: 400px;
+    background: $bg-surface;
+    padding: $space-6;
+    border-radius: $radius-lg;
+    width: 420px;
     max-width: 90%;
+    box-shadow: $shadow-lg;
+    animation: app-pop-in 0.25s ease;
 
     h2{
-        margin-bottom: 20px;
+        margin-bottom: $space-4;
+        font-size: 19px;
+        font-weight: 700;
+        color: $gray-900;
 
     }
     form{
         display: flex;
         flex-direction: column;
-        
-        
+
+
         label{
             margin-bottom: 6px;
             font-weight: 600;
+            font-size: 13px;
+            color: $text-secondary;
 
         }
         input[type='text'],textarea{
-            padding:  10px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+            padding: 10px 12px;
+            margin-bottom: $space-4;
+            border-radius: $radius-md;
+            border: 1px solid $border-color;
+            background-color: $gray-50;
+            font-size: 14px;
+            font-family: $font-family;
             resize: none;
+            transition: border-color $transition-base, background-color $transition-base, box-shadow $transition-base;
 
+            &:focus {
+                outline: none;
+                border-color: $primary;
+                background-color: $bg-surface;
+                box-shadow: $shadow-focus;
+            }
 
         }
         input[type='color']{
-            width: 50px;
+            width: 52px;
             height: 40px;
-            border: none;
-            margin-bottom: 20px;
+            border: 1px solid $border-color;
+            border-radius: $radius-sm;
+            margin-bottom: $space-5;
             cursor: pointer;
+            padding: 2px;
 
         }
         button{
-            padding: 12px;
-            margin-top: 10px;
+            padding: $space-3;
+            margin-top: $space-2;
             border: none;
-            border-radius: 5px;
+            border-radius: $radius-md;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            background-color: #1976d2;
+            background-color: $primary;
             color: white;
-
+            transition: background-color $transition-base, transform $transition-fast;
 
             &:hover{
-                background-color: #115293;
+                background-color: $primary-dark;
 
+            }
+
+            &:active {
+                transform: scale(0.98);
             }
 
         }
         .cancel-btn{
-            background-color: #ccc;
-            color: #444;
-            margin-top: 8px;
+            background-color: $gray-100;
+            color: $text-secondary;
+            margin-top: $space-2;
 
             &:hover{
-                background-color: #999;
+                background-color: $gray-200;
             }
         }
     }

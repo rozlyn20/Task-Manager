@@ -8,15 +8,19 @@ import Welcome from './pages/welcome/Welcome'
 import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import MyCalendar from './pages/calendar/MyCalendar';
+import Kanban from './pages/kanban/Kanban';
+import Analytics from './pages/analytics/Analytics';
 const App = () => {
   return (
     <Router>
-    <div style={{backgroundColor:"#f8f9fa"}}>
+    <div style={{backgroundColor:"#f6f7fb", minHeight:"100vh"}}>
     <Routes>
       <Route path="*" element={<Welcome/>}/>
       <Route path="/home" element={<Home/>}/>
       <Route path="/day" element={<Day/>}/>
       <Route path="/tomDay" element={<TomDay/>}/>
+      <Route path="/kanban" element={<Kanban/>}/>
+      <Route path="/analytics" element={<Analytics/>}/>
 
       <Route path="/calendar" element={<MyCalendar/>}/>
       <Route path="/sticky" element={<Sticky/>}/>

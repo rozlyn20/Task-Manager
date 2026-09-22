@@ -1,0 +1,81 @@
+// ==========================================================================
+// Design tokens — shared across the whole app.
+// Kept purely presentational: no component behaviour depends on this file.
+// ==========================================================================
+
+// ---- Brand / accent -------------------------------------------------------
+$primary: #4f46e5;      // indigo-600 — primary actions, active states
+$primary-dark: #4338ca; // indigo-700 — hover
+$primary-light: #eef2ff; // indigo-50 — soft backgrounds / active nav
+$accent: #10b981;       // emerald-500 — success / completed
+$accent-light: #ecfdf5;
+
+// ---- Semantic colors -------------------------------------------------------
+$danger: #ef4444;
+$danger-dark: #dc2626;
+$danger-light: #fef2f2;
+$warning: #f59e0b;
+$warning-light: #fffbeb;
+$info: #3b82f6;
+$info-light: #eff6ff;
+
+// ---- Category colors (kept consistent with existing data: Personal/Work/Other) --
+$cat-personal: #f43f5e;
+$cat-work: #3b82f6;
+$cat-other: #f59e0b;
+
+// ---- Neutrals ---------------------------------------------------------------
+$gray-25:  #fcfcfd;
+$gray-50:  #f9fafb;
+$gray-100: #f3f4f6;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #111827;
+
+$bg-app: #f6f7fb;
+$bg-surface: #ffffff;
+$border-color: $gray-200;
+
+$text-primary: $gray-800;
+$text-secondary: $gray-500;
+$text-muted: $gray-400;
+
+// ---- Elevation ---------------------------------------------------------------
+$shadow-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+$shadow-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+$shadow-md: 0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.05);
+$shadow-lg: 0 12px 24px -6px rgba(16, 24, 40, 0.12), 0 4px 8px -4px rgba(16, 24, 40, 0.06);
+$shadow-focus: 0 0 0 3px rgba(79, 70, 229, 0.15);
+
+// ---- Radius ---------------------------------------------------------------
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-xl: 20px;
+$radius-full: 999px;
+
+// ---- Spacing scale ---------------------------------------------------------
+$space-1: 4px;
+$space-2: 8px;
+$space-3: 12px;
+$space-4: 16px;
+$space-5: 20px;
+$space-6: 24px;
+$space-8: 32px;
+$space-10: 40px;
+
+// ---- Typography ---------------------------------------------------------
+$font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+// ---- Motion ---------------------------------------------------------
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+// ---- Layout ---------------------------------------------------------
+$sidebar-width: 260px;

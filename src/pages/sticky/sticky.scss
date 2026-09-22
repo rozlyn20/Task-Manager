@@ -1,37 +1,74 @@
+@use "../../styles/tokens" as *;
+
 .sticky{
     display: flex;
-    
 
     .stickyContainer{
-        flex: 6;
-        padding: 10px;
-        margin: 20px;
-
+        flex: 1;
+        min-width: 0;
+        padding: $space-8;
+        background-color: $bg-app;
 
         .title{
             font-size: 30px;
-            font-weight:bold ;
-
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: $gray-900;
+            margin-bottom: $space-2;
         }
         .row{
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             flex-wrap: wrap;
-            gap: 20px;
-            padding-top: 20px;
+            gap: $space-5;
+            padding-top: $space-5;
+
             .addNote{
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                color:#333 ;
-
+                color: $text-muted;
+                cursor: pointer;
+                background-color: $gray-50;
+                border: 1.5px dashed $gray-300;
+                box-shadow: none;
+                transition: background-color $transition-base, border-color $transition-base, color $transition-base, transform $transition-base;
 
                 .icon{
                     cursor: pointer;
-                    font-size: 50px;
+                    font-size: 40px;
+                }
+
+                &:hover {
+                    background-color: $primary-light;
+                    border-color: $primary;
+                    color: $primary;
+                    transform: translateY(-2px);
                 }
             }
-            
+
+        }
+
+        .empty-add-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: $space-2;
+            margin-top: $space-3;
+            padding: $space-2 $space-4;
+            border: none;
+            border-radius: $radius-md;
+            background-color: $primary;
+            color: #fff;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: $shadow-sm;
+            transition: background-color $transition-base, transform $transition-fast;
+
+            &:hover {
+                background-color: $primary-dark;
+                transform: translateY(-1px);
+            }
         }
     }
 }

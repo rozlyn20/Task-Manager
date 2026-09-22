@@ -3,6 +3,7 @@ import './register.scss'
 import { Link,useNavigate} from 'react-router-dom'
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
+import { TaskAlt } from "@mui/icons-material";
 const Register = () => {
     const [formData,setFormData]=useState({
     username:"",
@@ -11,6 +12,7 @@ const Register = () => {
     confirmPassword:"",
 })
 const [error,setError]=useState("")
+const [submitting,setSubmitting]=useState(false)
 const navigate=useNavigate()
 const handleChange=(e)=>{
     setFormData({
@@ -24,10 +26,10 @@ const handleSubmit = async (e) => {
         setError("Passwords do not match");
         return;
     }
+const targetUrl = `${API_BASE_URL}/api/auth/register`;
+console.log("[Deployment Debug Register] Target URL:", targetUrl);
 
-    const targetUrl = `${API_BASE_URL}/api/auth/register`;
-    console.log("[Deployment Debug Register] Target URL:", targetUrl);
-
+setSubmitting(true);
     try {
         await axios.post(
             targetUrl,
@@ -44,49 +46,52 @@ const handleSubmit = async (e) => {
         setError(
             err.response?.data?.message || "Registration failed"
         );
+    } finally {
+        setSubmitting(false);
     }
 };
   return (
     <div className='register'>
-      <div className="right">
-        <img
-        src="https://i.pinimg.com/474x/01/5c/d1/015cd1a2012af33b64bdf68583165341.jpg" 
-        alt="Weclome to the productivity App"
-        />
-      </div>
       <div className="left">
         <form onSubmit={handleSubmit}>
             <div className="wrapper">
-                <h1>Sign up</h1>
+                <div className="brand">
+                    <span className="brand-icon"><TaskAlt/></span>
+                    <span className="brand-name">TaskFlow</span>
+                </div>
+                <h1>Create your account</h1>
                 <p className="body">
-                     Organize your tasks,manage your time,and boost your productivity with intuitive interface
+                     Organize your tasks, manage your time, and boost your productivity with an intuitive interface.
                 </p>
-                <input type="text" name="username" placeholder='username' onChange={handleChange} required />
-                <input type="email" name="email" placeholder='email' onChange={handleChange} required />
-                <input type="password" name="password" placeholder='password' onChange={handleChange} required />
-                <input type="password" name="confirmPassword" placeholder='confirmPassword' onChange={handleChange} required/>
-                <button className='btn' type="submit">Sign up</button>
+                <label htmlFor="username">Username</label>
+                <input type="text" id="username" name="username" placeholder='Jane Doe' onChange={handleChange} required />
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" name="email" placeholder='you@example.com' onChange={handleChange} required />
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" name="password" placeholder='••••••••' onChange={handleChange} required />
+                <label htmlFor="confirmPassword">Confirm password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder='••••••••' onChange={handleChange} required/>
+                <button className='btn' type="submit" disabled={submitting}>
+                    {submitting ? <span className="app-spinner app-spinner--light"></span> : "Sign up"}
+                </button>
                 {error && (
-                    <div style={{backgroundColor:"#ffe0e0",
-                         color:"#d8000c",
-                         padding:"12px 16px", 
-                         border:"1px solid #d8000c", 
-                         borderRadius:"8px", 
-                         marginTop:"10px",
-                        fontWeight:"500"
-                        }}>
+                    <div className="form-error">
                         {error}
                         </div>
                 )}
-                <p style={{textAlign:"center"}}>
-                    Already have an account <span style={{color:"#007bff",cursor:"pointer"}}>
-                    <Link to="/login" style={{textDecoration:"none"}}>
+                <p className="switch">
+                    Already have an account?{" "}
+                    <Link to="/login" className="link">
                         Login
                         </Link>
-                        </span>
                 </p>
             </div>
         </form>
+      </div>
+      <div className="right">
+        <div className="showcase">
+            <p className="quote">"Plan your day, not your chaos."</p>
+        </div>
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./tomorrow.scss";
-import { NavigateNext, TodayOutlined } from "@mui/icons-material";
+import { EventAvailable, NavigateNext, TodayOutlined } from "@mui/icons-material";
 import New from "../NewModal/New";
 import { API_BASE_URL } from "../../config";
 
@@ -12,6 +12,7 @@ const Tomorrow = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
 const tomorrowTasks = tasks.filter((task) => {
@@ -56,6 +57,8 @@ useEffect(() => {
       setTasks(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
   const deleteTask = async (id) => {
@@ -113,6 +116,21 @@ useEffect(() => {
   return (
     <div className="today">
       <p className="title"> Tomorrow </p>
+
+      {loading ? (
+        <div className="app-loading-state">
+          <span className="app-spinner"></span>
+          <span>Loading tomorrow's tasks…</span>
+        </div>
+      ) : tomorrowTasks.length === 0 ? (
+        <div className="app-empty-state">
+          <span className="app-empty-icon">
+            <EventAvailable />
+          </span>
+          <p className="app-empty-title">Nothing scheduled for tomorrow</p>
+          <p className="app-empty-subtitle">Tasks due tomorrow will show up here.</p>
+        </div>
+      ) : (
       <ul>
         {/* <li
           style={{ border: "1px solid #e6e6e6" }}
@@ -208,6 +226,7 @@ useEffect(() => {
           </li>
         ))}
       </ul>
+      )}
       {showEditor && (
         <New onClose={handleCloseEditor} fetchTasks={fetchTasks} task={selectedTask}/>
       )}

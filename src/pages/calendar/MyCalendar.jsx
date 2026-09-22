@@ -84,7 +84,7 @@ Due Date: ${task.dueDate}`,
   return (
     <div className="calendar">
       <Sidebar />
-      <div className="mycalendar" style={{ padding: "20px" }}>
+      <div className="mycalendar">
         <h1>Calendar</h1>
         <Calendar
           localizer={localizer}

@@ -8,6 +8,7 @@ const New = ({ onClose, fetchTasks, task, selectedDate   }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Personal");
+  const [deleting, setDeleting] = useState(false);
   const [dueDate, setDueDate] = useState(
   selectedDate
     ? format(selectedDate, "yyyy-MM-dd")
@@ -71,6 +72,33 @@ const token = localStorage.getItem("token");
 
   } catch (error) {
     console.log(error);
+  }
+};
+
+const deleteTask = async () => {
+  if (!task) return;
+  if (!window.confirm("Delete this task? This can't be undone.")) return;
+
+  setDeleting(true);
+  try {
+    const token = localStorage.getItem("token");
+
+    await axios.delete(
+      `${process.env.REACT_APP_API_URL}/api/tasks/${task._id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+    fetchTasks();
+    onClose();
+
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setDeleting(false);
   }
 };
   return (
@@ -186,7 +214,11 @@ const token = localStorage.getItem("token");
               {" "}
               Cancel
             </button>
-            <button className="delete"> Delete</button>
+            {task && (
+              <button className="delete" onClick={deleteTask} disabled={deleting}>
+                {deleting ? "Deleting…" : "Delete"}
+              </button>
+            )}
             <button className="save" onClick={saveTask}>
               Save changes
             </button>

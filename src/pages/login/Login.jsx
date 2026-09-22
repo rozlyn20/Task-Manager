@@ -3,6 +3,7 @@ import './login.scss'
 import axios from "axios";
 import { Link,useNavigate} from 'react-router-dom'
 import { API_BASE_URL } from "../../config";
+import { TaskAlt } from "@mui/icons-material";
 
 const Login = () => {
     const [formData,setFormData]=useState({
@@ -10,6 +11,7 @@ const Login = () => {
         password:"",
     })
     const [error,setError]=useState("");
+    const [submitting,setSubmitting]=useState(false);
     const navigate=useNavigate()
     const handleChange=(e)=>{
     setFormData({
@@ -18,6 +20,7 @@ const Login = () => {
 }
 const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitting(true);
 
     const targetUrl = `${API_BASE_URL}/api/auth/login`;
     console.log("[Deployment Debug Login] Target URL:", targetUrl);
@@ -43,46 +46,49 @@ const handleSubmit = async (e) => {
             err.response?.data?.message || "Login failed"
         );
 
+    } finally {
+        setSubmitting(false);
     }
 };
 return (
     <div className='login'>
-      <div className="right">
-        <img
-        src="https://i.pinimg.com/474x/01/5c/d1/015cd1a2012af33b64bdf68583165341.jpg" 
-        alt="Weclome to the productivity App"
-        />
-      </div>
       <div className="left">
         <form onSubmit={handleSubmit}>
             <div className="wrapper">
-                <h1>Sign In</h1>
-                
+                <div className="brand">
+                    <span className="brand-icon"><TaskAlt/></span>
+                    <span className="brand-name">TaskFlow</span>
+                </div>
+                <h1>Welcome back</h1>
+                <p className="subtitle">Log in to keep track of your tasks.</p>
+
                 {/* <input type="text" name="username" placeholder='username' onChange={handleChange} autoComplete='username' required /> */}
-                <input type="email" name="email" placeholder='email' onChange={handleChange} autoComplete='current-password' required />
-                <input type="password" name="password" placeholder='password' onChange={handleChange} required />
-                
-                <button className='btn' type="submit">Login</button>
+                <label htmlFor="email">Email</label>
+                <input type="email" id="email" name="email" placeholder='you@example.com' onChange={handleChange} autoComplete='current-password' required />
+                <label htmlFor="password">Password</label>
+                <input type="password" id="password" name="password" placeholder='••••••••' onChange={handleChange} required />
+
+                <button className='btn' type="submit" disabled={submitting}>
+                    {submitting ? <span className="app-spinner app-spinner--light"></span> : "Login"}
+                </button>
                 {error && (
-                    <div style={{backgroundColor:"#ffe0e0",
-                         color:"#d8000c",
-                         padding:"12px 16px", 
-                         border:"1px solid #d8000c", 
-                         borderRadius:"8px", 
-                         marginTop:"10px",
-                        fontWeight:"500"
-                        }}>
+                    <div className="form-error">
                         {error}
                         </div>
                 )}
-                <p style={{textAlign:"center"}}>
-                        Don't have an account? <span style={{color:"#007bff",cursor:"pointer"}}>
-                        <Link to="/register" style ={{textDecoration:"none"}}>
+                <p className="switch">
+                        Don't have an account?{" "}
+                        <Link to="/register" className="link">
                         Sign up
-                        </Link></span>
+                        </Link>
                 </p>
             </div>
         </form>
+      </div>
+      <div className="right">
+        <div className="showcase">
+            <p className="quote">"Finally a task manager that gets out of my way."</p>
+        </div>
       </div>
     </div>
   )

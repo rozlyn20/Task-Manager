@@ -1,45 +1,57 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { TaskAlt, CalendarMonthOutlined, StickyNote2Outlined } from '@mui/icons-material'
 import './welcome.scss'
 const Welcome = () => {
   return (
     <div className='welcome'>
-      <div className="right">
-        <img
-        src="https://i.pinimg.com/474x/01/5c/d1/015cd1a2012af33b64bdf68583165341.jpg" 
-        alt="Weclome to the productivity App"
-        />
-      </div>
       <div className="left">
         <div className="wrapper">
-            <h1>Productive Mind</h1>
+            <div className="brand">
+                <span className="brand-icon"><TaskAlt/></span>
+                <span className="brand-name">TaskFlow</span>
+            </div>
+            <h1>Organize your work.<br/>Reclaim your time.</h1>
             <p className="body">
-                Organize your tasks,manage your time,and boost your productivity with intuitive interface
+                Plan your day, track tasks and jot quick notes — all in one clean, distraction-free workspace built for getting things done.
             </p>
            <Link
   to="/register"
   className="btn"
-  style={{
-    textDecoration: "none",
-    color: "white",
-    display: "inline-block",
-    textAlign: "center"
-  }}
 >
-  Get Started
+  Get Started — it's free
 </Link>
-            <p>
-                Already have an account?
-                <span style={{
-                    color:"#007bff",
-                    cursor:"pointer",
-                    textDecoration:"none"
-                    }}>
-                       <Link to="/login" style ={{textDecoration:"none"}}>
-                        Login
+            <p className="switch">
+                Already have an account?{" "}
+                <Link to="/login" className="link">
+                        Log in
                         </Link>
-                        </span>
             </p>
+        </div>
+      </div>
+      <div className="right">
+        <div className="showcase">
+            <div className="showcase-card card-1">
+                <TaskAlt/>
+                <div>
+                    <strong>Daily focus</strong>
+                    <span>Today &amp; Tomorrow views</span>
+                </div>
+            </div>
+            <div className="showcase-card card-2">
+                <CalendarMonthOutlined/>
+                <div>
+                    <strong>Calendar view</strong>
+                    <span>Plan across the month</span>
+                </div>
+            </div>
+            <div className="showcase-card card-3">
+                <StickyNote2Outlined/>
+                <div>
+                    <strong>Sticky wall</strong>
+                    <span>Quick notes &amp; ideas</span>
+                </div>
+            </div>
         </div>
       </div>
     </div>

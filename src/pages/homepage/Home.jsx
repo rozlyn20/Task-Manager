@@ -5,27 +5,26 @@ import New from "../../components/NewModal/New";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Add } from "@mui/icons-material";
+import { Add, EventAvailable } from "@mui/icons-material";
 import { API_BASE_URL } from "../../config";
 
 const Home = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const upcomingTasks = tasks.filter((task) => {
+const upcomingTasks = tasks.filter((task) => {
   const today = new Date();
-
+  today.setHours(0, 0, 0, 0);
 
   const taskDate = new Date(task.dueDate);
+  taskDate.setHours(0, 0, 0, 0);
 
-  const threeDaysLater = new Date();
+  const threeDaysLater = new Date(today);
   threeDaysLater.setDate(today.getDate() + 3);
 
-  return (
-    taskDate >= today &&
-    taskDate <= threeDaysLater
-  );
+  return taskDate >= today && taskDate <= threeDaysLater;
 });
 useEffect(() => {
 
@@ -55,6 +54,8 @@ useEffect(() => {
       setTasks(response.data);
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,13 +73,13 @@ useEffect(() => {
         </div>
         <ul>
           <li
-            style={{ border: "1px solid #e6e6e6" }}
+            className="add-task-row"
             onClick={() => {
               setShowEditor(true);
             }}
           >
             <Add />
-            <span style={{ marginLeft: "10px" }}>Add New Task</span>
+            <span>Add New Task</span>
           </li>
         </ul>
         {showEditor && (
@@ -91,8 +92,19 @@ useEffect(() => {
         <div className="upcoming-section">
   <h3>Upcoming Tasks</h3>
 
-  {upcomingTasks.length === 0 ? (
-    <p>No upcoming tasks</p>
+  {loading ? (
+    <div className="app-loading-state">
+      <span className="app-spinner"></span>
+      <span>Loading your tasks…</span>
+    </div>
+  ) : upcomingTasks.length === 0 ? (
+    <div className="app-empty-state">
+      <span className="app-empty-icon">
+        <EventAvailable />
+      </span>
+      <p className="app-empty-title">No upcoming tasks</p>
+      <p className="app-empty-subtitle">Tasks due in the next 3 days will appear here.</p>
+    </div>
   ) : (
     <ul>
       {upcomingTasks.map((task) => (

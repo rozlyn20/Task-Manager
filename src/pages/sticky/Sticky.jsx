@@ -3,7 +3,7 @@ import "./sticky.scss";
 import Sidebar from "../../components/sidebar/Sidebar";
 import StickyNote from "../../components/StickyNote/StickyNote";
 import StickyModal from "../../components/StickyModal/StickyModal";
-import { Add } from "@mui/icons-material";
+import { Add, StickyNote2Outlined } from "@mui/icons-material";
 import axios from "axios";
 import { API_BASE_URL } from "../../config";
 
@@ -12,6 +12,7 @@ const Sticky = () => {
   const [wall, setWall] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingNote, setEditingNote] = useState(null);
+  const [loading, setLoading] = useState(true);
   const fetchStickies = async () => {
   try {
     const token = localStorage.getItem("token");
@@ -29,6 +30,8 @@ const Sticky = () => {
 
   } catch (error) {
     console.log(error);
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -53,8 +56,7 @@ useEffect(() => {
 
     if (editingNote) {
 
-      await axios.put(
-        `${API_BASE_URL}/api/sticky/${editingNote._id}`,
+      await axios.put(`${API_BASE_URL}/api/sticky/${editingNote._id}`,
         data,
         {
           headers: {
@@ -137,6 +139,20 @@ const handleDelete = async (id) => {
       <div className="stickyContainer">
         <p className="title"> Sticky Wall </p>
 
+        {loading ? (
+          <div className="app-loading-state">
+            <span className="app-spinner"></span>
+            <span>Loading your sticky notes…</span>
+          </div>
+        ) : wall.length === 0 ? (
+          <div className="app-empty-state">
+            <span className="app-empty-icon">
+              <StickyNote2Outlined />
+            </span>
+            <p className="app-empty-title">Your wall is empty</p>
+            <p className="app-empty-subtitle">Add a sticky note to jot down quick ideas and reminders.</p>
+          </div>
+        ) : (
         <div className="row">
           {wall.map((note) => (
             <StickyNote
@@ -153,11 +169,16 @@ const handleDelete = async (id) => {
           <div
             className="stickyNote addNote"
             onClick={openAddModal}
-            style={{ cursor: "pointer", backgroundColor: "lightgrey" }}
           >
             <Add className="icon" />
           </div>
         </div>
+        )}
+        {!loading && wall.length === 0 && (
+          <button className="empty-add-btn" onClick={openAddModal}>
+            <Add fontSize="small" /> Add sticky note
+          </button>
+        )}
         <StickyModal
           open={modalOpen}
           onClose={closeModal}

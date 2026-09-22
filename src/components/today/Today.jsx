@@ -4,15 +4,17 @@ import { useEffect, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 
 import "./today.scss";
-import {  NavigateNext, TodayOutlined } from "@mui/icons-material";
+import { EventAvailable, NavigateNext, TodayOutlined } from "@mui/icons-material";
 import New from "../NewModal/New";
 import { API_BASE_URL } from "../../config";
+
 
 const Today = () => {
   const [openTask, setOpenTask] = useState(null);
   const [showEditor, setShowEditor] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [loading, setLoading] = useState(true);
    const navigate = useNavigate();
   const todayTasks = tasks.filter((task) => {
   const today = new Date();
@@ -40,23 +42,26 @@ useEffect(() => {
     fetchTasks();
   }, []);
 
-  const fetchTasks = async () => {
-    try {
-     const token = localStorage.getItem("token");
+const fetchTasks = async () => {
+  try {
+    const token = localStorage.getItem("token");
 
-        const response = await axios.get(
-            `${API_BASE_URL}/api/tasks`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        );
-      setTasks(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+    const response = await axios.get(
+      `${API_BASE_URL}/api/tasks`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setTasks(response.data);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    setLoading(false);
+  }
+};
   const deleteTask = async (id) => {
     try {
        const token = localStorage.getItem("token");
@@ -110,6 +115,21 @@ useEffect(() => {
   return (
     <div className="today">
       <p className="title"> Today </p>
+
+      {loading ? (
+        <div className="app-loading-state">
+          <span className="app-spinner"></span>
+          <span>Loading today's tasks…</span>
+        </div>
+      ) : todayTasks.length === 0 ? (
+        <div className="app-empty-state">
+          <span className="app-empty-icon">
+            <EventAvailable />
+          </span>
+          <p className="app-empty-title">Nothing due today</p>
+          <p className="app-empty-subtitle">Tasks with today's due date will show up here.</p>
+        </div>
+      ) : (
       <ul>
         {/* <li
           style={{ border: "1px solid #e6e6e6" }}
@@ -205,6 +225,7 @@ useEffect(() => {
           </li>
         ))}
       </ul>
+      )}
       {showEditor && (
         <New onClose={handleCloseEditor} fetchTasks={fetchTasks} task={selectedTask}/>
       )}

@@ -1,0 +1,227 @@
+@use "../../styles/tokens" as *;
+
+.kanban {
+    display: flex;
+
+    .kanbanContainer {
+        flex: 1;
+        min-width: 0;
+        background-color: $bg-app;
+        padding: $space-8;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+
+        .board-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: $space-5;
+
+            .title {
+                font-size: 30px;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                color: $gray-900;
+            }
+
+            .add-task-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                border: none;
+                background-color: $primary;
+                color: #fff;
+                padding: 10px $space-4;
+                border-radius: $radius-md;
+                font-weight: 600;
+                font-size: 13.5px;
+                cursor: pointer;
+                box-shadow: $shadow-sm;
+                transition: background-color $transition-base, transform $transition-fast, box-shadow $transition-base;
+
+                &:hover {
+                    background-color: $primary-dark;
+                    box-shadow: $shadow-md;
+                    transform: translateY(-1px);
+                }
+            }
+        }
+
+        .board-error {
+            display: flex;
+            align-items: center;
+            gap: $space-2;
+            background-color: $danger-light;
+            color: $danger-dark;
+            border: 1px solid #fecaca;
+            padding: $space-3 $space-4;
+            border-radius: $radius-md;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: $space-4;
+            animation: app-fade-in 0.25s ease;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: $space-5;
+            align-items: start;
+            flex: 1;
+
+            .column {
+                background-color: $gray-50;
+                border: 1px solid $border-color;
+                border-radius: $radius-lg;
+                padding: $space-4;
+                min-height: 420px;
+                display: flex;
+                flex-direction: column;
+                transition: background-color $transition-base, border-color $transition-base;
+
+                &.drag-over {
+                    background-color: $primary-light;
+                    border-color: $primary;
+                }
+
+                .column-header {
+                    display: flex;
+                    align-items: center;
+                    gap: $space-2;
+                    margin-bottom: $space-4;
+                    padding: 0 $space-1;
+
+                    .dot {
+                        width: 9px;
+                        height: 9px;
+                        border-radius: $radius-full;
+                        flex-shrink: 0;
+                    }
+                    .dot-ToDo { background-color: $gray-400; }
+                    .dot-InProgress { background-color: $warning; }
+                    .dot-Done { background-color: $accent; }
+
+                    .column-title {
+                        font-size: 14px;
+                        font-weight: 700;
+                        color: $gray-900;
+                    }
+
+                    .column-count {
+                        margin-left: auto;
+                        min-width: 22px;
+                        height: 20px;
+                        padding: 0 6px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: $radius-full;
+                        background-color: $gray-200;
+                        color: $text-secondary;
+                        font-size: 11px;
+                        font-weight: 700;
+                    }
+                }
+
+                .column-body {
+                    display: flex;
+                    flex-direction: column;
+                    gap: $space-3;
+                    flex: 1;
+
+                    .column-empty {
+                        flex: 1;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        min-height: 80px;
+                        border: 1.5px dashed $gray-300;
+                        border-radius: $radius-md;
+                        color: $text-muted;
+                        font-size: 12.5px;
+                        font-weight: 500;
+                    }
+
+                    .kanban-card {
+                        background-color: $bg-surface;
+                        border: 1px solid $border-color;
+                        border-radius: $radius-md;
+                        padding: $space-3 $space-3;
+                        cursor: grab;
+                        box-shadow: $shadow-xs;
+                        transition: box-shadow $transition-base, transform $transition-base, border-color $transition-base;
+                        animation: app-fade-in 0.25s ease;
+
+                        &:hover {
+                            box-shadow: $shadow-sm;
+                            transform: translateY(-2px);
+                            border-color: $gray-300;
+                        }
+
+                        &:active {
+                            cursor: grabbing;
+                        }
+
+                        .card-top {
+                            display: flex;
+                            align-items: center;
+                            gap: 6px;
+                            margin-bottom: $space-2;
+
+                            .category-color {
+                                width: 8px;
+                                height: 8px;
+                                border-radius: $radius-full;
+                                flex-shrink: 0;
+                            }
+
+                            .category-label {
+                                font-size: 11px;
+                                font-weight: 700;
+                                text-transform: uppercase;
+                                letter-spacing: 0.03em;
+                                color: $text-muted;
+                            }
+
+                            .drag-handle {
+                                margin-left: auto;
+                                font-size: 16px;
+                                color: $gray-300;
+                            }
+                        }
+
+                        .card-title {
+                            font-size: 13.5px;
+                            font-weight: 600;
+                            color: $text-primary;
+                            line-height: 1.4;
+                            margin-bottom: $space-2;
+                            word-break: break-word;
+                        }
+
+                        .card-due {
+                            display: flex;
+                            align-items: center;
+                            gap: 4px;
+                            font-size: 11.5px;
+                            font-weight: 600;
+                            color: $text-secondary;
+
+                            .icon {
+                                font-size: 13px;
+                                color: $text-muted;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1100px) {
+    .kanban .kanbanContainer .board {
+        grid-template-columns: 1fr;
+    }
+}

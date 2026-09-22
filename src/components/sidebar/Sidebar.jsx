@@ -1,76 +1,79 @@
 import React from 'react'
 import "./sidebar.scss";
-import { useNavigate,Link } from 'react-router-dom';
-import {CalendarMonthOutlined, Checklist, Logout, Menu,NavigateNext, SearchOutlined, StickyNote2} from '@mui/icons-material';
+import { useNavigate, NavLink } from 'react-router-dom';
+import {CalendarMonthOutlined, Checklist, Logout, SpaceDashboardOutlined, SearchOutlined, StickyNote2, TaskAlt, ViewKanbanOutlined, InsightsOutlined} from '@mui/icons-material';
 
 const Sidebar = () => {
  const navigate =useNavigate();
   const handleLogOut=()=>{
     navigate('/login')
-    
+
   }
   return (
     <div className="sidebar">
       <div className="top">
-        <div className="menu">
-            <span className="menu-title">
-                Menu
+        <div className="brand">
+            <span className="brand-icon">
+                <TaskAlt />
             </span>
-            <Menu/>
-            
+            <span className="brand-name">TaskFlow</span>
         </div>
         <div className="search">
+            <SearchOutlined className="search-icon" />
             <input type="text" placeholder='Search'/>
-            <SearchOutlined/>
         </div>
       </div>
-      <div className="center"> 
+      <div className="center">
       <ul>
-        <p className='title'>Tasks</p>
-        <Link to="/home" style={{textDecoration:"none"}}>
-        
-        <li>
-          <NavigateNext className="icon"/>
+        <p className='title'>Menu</p>
+        <NavLink to="/home" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <SpaceDashboardOutlined className="icon"/>
             <span>Home</span>
-            
-              </li>
-        </Link>
-        <Link to="/day" style={{textDecoration:"none"}}>
-            <li>
-              <Checklist className="icon"/>
-                <span> Today</span>
-                
-            </li>
-         </Link>
-         <Link to="/tomDay" style={{textDecoration:"none"}}>
-            <li>
-              <Checklist className="icon"/>
-                <span> Tomorrow</span>
-                
-            </li>
-         </Link>
-          <Link to="/calendar" style={{textDecoration:"none"}}>
-             <li>
-              <CalendarMonthOutlined className='icon'/>
+          </li>
+        </NavLink>
+        <NavLink to="/day" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <Checklist className="icon"/>
+            <span>Today</span>
+          </li>
+        </NavLink>
+        <NavLink to="/tomDay" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <Checklist className="icon"/>
+            <span>Tomorrow</span>
+          </li>
+        </NavLink>
+        <NavLink to="/kanban" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <ViewKanbanOutlined className="icon"/>
+            <span>Board</span>
+          </li>
+        </NavLink>
+        <NavLink to="/analytics" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <InsightsOutlined className="icon"/>
+            <span>Analytics</span>
+          </li>
+        </NavLink>
+        <NavLink to="/calendar" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <CalendarMonthOutlined className='icon'/>
+            <span>Calendar</span>
+          </li>
+        </NavLink>
+        <NavLink to="/sticky" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <StickyNote2 className="icon"/>
+            <span>Sticky wall</span>
+          </li>
+        </NavLink>
+      </ul>
 
-                <span> Calendar</span>
-            </li>
-            </Link>
-            <Link to="/sticky" style={{textDecoration:"none"}}>
-            <li>
-              <StickyNote2 className="icon"/>
-                <span> Sticky wall</span>
-            </li>
-            </Link>
-          </ul>
-         
-            
-      
-      
       {/* <p className="title">
         Category
       </p>
-      
+
     <ul>
         <li>
             <div className="color" style={{backgroundColor:"#e74c3c"}}></div>
@@ -104,7 +107,6 @@ const Sidebar = () => {
         </div>
       </div> */}
      </div>
-     <br/>
       <div className="bottom">
         <ul>
             <li onClick={handleLogOut}>

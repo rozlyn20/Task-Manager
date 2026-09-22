@@ -5,14 +5,27 @@ const protect = require("../middleware/authMiddleware");
 const Task = require("../models/Task");
 router.put("/:id", protect, async (req, res) => {
     try {
+        // Explicit whitelist: only these fields can ever be changed via this
+        // route, and only the ones actually present in the request body are
+        // touched (so a partial update like { status: "Done" } from the
+        // Kanban board never clobbers other fields).
+        const allowedFields = ["title", "description", "category", "dueDate", "completed", "status"];
+        const updates = {};
+        allowedFields.forEach((field) => {
+            if (req.body[field] !== undefined) {
+                updates[field] = req.body[field];
+            }
+        });
+
         const task = await Task.findOneAndUpdate(
             {
                 _id: req.params.id,
                 user: req.user._id
             },
-            req.body,
+            updates,
             {
-                new: true
+                new: true,
+                runValidators: true
             }
         );
         if (!task) {
