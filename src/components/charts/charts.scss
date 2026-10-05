@@ -145,3 +145,40 @@
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// Contribution heatmap — used by the Habit Tracker
+// ---------------------------------------------------------------------------
+.chart-heatmap {
+    --heatmap-missed: #{$gray-200};
+    --heatmap-unscheduled: #{$gray-100};
+
+    display: inline-block;
+
+    svg {
+        display: block;
+        overflow: visible;
+    }
+
+    .heatmap-weekday {
+        font-size: 9px;
+        font-weight: 600;
+        fill: $text-muted;
+    }
+
+    .heatmap-cell {
+        transition: transform $transition-fast;
+        cursor: default;
+
+        &.logged {
+            transform-box: fill-box;
+            transform-origin: center;
+        }
+
+        &:hover {
+            transform-box: fill-box;
+            transform-origin: center;
+            transform: scale(1.15);
+        }
+    }
+}

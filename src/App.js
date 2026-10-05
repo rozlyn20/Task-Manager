@@ -9,6 +9,7 @@ import Register from './pages/register/Register'
 import Login from './pages/login/Login'
 import MyCalendar from './pages/calendar/MyCalendar';
 import Kanban from './pages/kanban/Kanban';
+import Habits from './pages/habits/Habits';
 import Analytics from './pages/analytics/Analytics';
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
       <Route path="/home" element={<Home/>}/>
       <Route path="/day" element={<Day/>}/>
       <Route path="/tomDay" element={<TomDay/>}/>
+      <Route path="/habits" element={<Habits/>}/>
       <Route path="/kanban" element={<Kanban/>}/>
       <Route path="/analytics" element={<Analytics/>}/>
 

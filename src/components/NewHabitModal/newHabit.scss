@@ -1,0 +1,264 @@
+@use "../../styles/tokens" as *;
+
+.habit-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(17, 24, 39, 0.5);
+    backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: app-fade-in 0.2s ease;
+}
+
+.habit-modal-content {
+    background: $bg-surface;
+    padding: $space-8;
+    border-radius: $radius-lg;
+    width: 90%;
+    max-width: 480px;
+    position: relative;
+    box-shadow: $shadow-lg;
+    animation: app-pop-in 0.25s ease;
+    overflow-y: auto;
+    max-height: 90vh;
+
+    h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: $gray-900;
+        margin-bottom: $space-5;
+    }
+
+    .close-button {
+        position: absolute;
+        top: $space-4;
+        right: $space-4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: none;
+        border-radius: $radius-full;
+        background: $gray-100;
+        font-size: 1.3rem;
+        line-height: 1;
+        cursor: pointer;
+        color: $text-secondary;
+        transition: background-color $transition-fast, color $transition-fast;
+
+        &:hover {
+            background-color: $gray-200;
+            color: $gray-900;
+        }
+    }
+
+    .field {
+        margin-bottom: $space-4;
+
+        label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: $text-muted;
+            margin-bottom: $space-2;
+        }
+
+        input[type="text"],
+        textarea {
+            width: 100%;
+            border: 1px solid $border-color;
+            background-color: $gray-50;
+            padding: 11px 14px;
+            border-radius: $radius-md;
+            font-size: 14px;
+            font-family: $font-family;
+            resize: none;
+            transition: border-color $transition-base, background-color $transition-base, box-shadow $transition-base;
+
+            &:focus {
+                border-color: $primary;
+                background-color: $bg-surface;
+                outline: none;
+                box-shadow: $shadow-focus;
+            }
+
+            &::placeholder {
+                color: $text-muted;
+            }
+        }
+
+        textarea {
+            height: 70px;
+        }
+    }
+
+    .frequency-toggle {
+        display: flex;
+        gap: $space-2;
+
+        button {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid $border-color;
+            background-color: $gray-50;
+            color: $text-secondary;
+            border-radius: $radius-md;
+            font-weight: 600;
+            font-size: 13.5px;
+            cursor: pointer;
+            transition: background-color $transition-base, color $transition-base, border-color $transition-base;
+
+            &:hover {
+                background-color: $gray-100;
+            }
+
+            &.active {
+                background-color: $primary-light;
+                border-color: $primary;
+                color: $primary;
+            }
+        }
+    }
+
+    .weekday-picker {
+        display: flex;
+        gap: 6px;
+
+        .day {
+            width: 36px;
+            height: 36px;
+            border-radius: $radius-full;
+            border: 1px solid $border-color;
+            background-color: $gray-50;
+            color: $text-secondary;
+            font-size: 12.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background-color $transition-base, color $transition-base, border-color $transition-base, transform $transition-fast;
+
+            &:hover {
+                background-color: $gray-100;
+            }
+
+            &.active {
+                background-color: $primary;
+                border-color: $primary;
+                color: #fff;
+                transform: scale(1.05);
+            }
+        }
+    }
+
+    .color-picker {
+        display: flex;
+        gap: $space-2;
+
+        .swatch {
+            width: 28px;
+            height: 28px;
+            border-radius: $radius-full;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform $transition-fast, border-color $transition-fast;
+
+            &:hover {
+                transform: scale(1.1);
+            }
+
+            &.active {
+                border-color: $gray-900;
+            }
+        }
+    }
+
+    .habit-form-error {
+        background-color: $danger-light;
+        color: $danger-dark;
+        padding: $space-3 $space-4;
+        border: 1px solid #fecaca;
+        border-radius: $radius-md;
+        margin-bottom: $space-4;
+        font-weight: 500;
+        font-size: 13.5px;
+        animation: app-fade-in 0.25s ease;
+    }
+
+    .bottom {
+        display: flex;
+        justify-content: flex-end;
+        gap: $space-3;
+        margin-top: $space-5;
+        padding-top: $space-5;
+        border-top: 1px solid $border-color;
+
+        .delete {
+            background-color: $danger-light;
+            color: $danger-dark;
+            border: none;
+            padding: 10px $space-4;
+            border-radius: $radius-md;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13.5px;
+            margin-right: auto;
+            transition: background-color $transition-base;
+
+            &:hover {
+                background-color: #fee2e2;
+            }
+
+            &:disabled {
+                opacity: 0.6;
+                cursor: not-allowed;
+            }
+        }
+
+        .cancel,
+        .save {
+            height: 40px;
+            min-width: 100px;
+            border-radius: $radius-md;
+            padding: 0 $space-4;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 13.5px;
+            transition: background-color $transition-base, transform $transition-fast;
+
+            &:active {
+                transform: scale(0.97);
+            }
+
+            &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+            }
+        }
+
+        .cancel {
+            background-color: $gray-100;
+            color: $text-secondary;
+
+            &:hover {
+                background-color: $gray-200;
+            }
+        }
+
+        .save {
+            background-color: $primary;
+            color: #fff;
+
+            &:hover:not(:disabled) {
+                background-color: $primary-dark;
+            }
+        }
+    }
+}

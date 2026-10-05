@@ -1,0 +1,208 @@
+@use "../../styles/tokens" as *;
+
+.habits {
+    display: flex;
+
+    .habitsContainer {
+        flex: 1;
+        min-width: 0;
+        background-color: $bg-app;
+        padding: $space-8;
+
+        .habits-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: $space-5;
+
+            .title {
+                font-size: 30px;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+                color: $gray-900;
+            }
+
+            .add-habit-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                border: none;
+                background-color: $primary;
+                color: #fff;
+                padding: 10px $space-4;
+                border-radius: $radius-md;
+                font-weight: 600;
+                font-size: 13.5px;
+                cursor: pointer;
+                box-shadow: $shadow-sm;
+                transition: background-color $transition-base, transform $transition-fast, box-shadow $transition-base;
+
+                &:hover {
+                    background-color: $primary-dark;
+                    box-shadow: $shadow-md;
+                    transform: translateY(-1px);
+                }
+            }
+        }
+
+        .habits-error {
+            background-color: $danger-light;
+            color: $danger-dark;
+            border: 1px solid #fecaca;
+            padding: $space-3 $space-4;
+            border-radius: $radius-md;
+            font-size: 13.5px;
+            font-weight: 500;
+            margin-bottom: $space-4;
+            animation: app-fade-in 0.25s ease;
+        }
+
+        .habit-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: $space-5;
+
+            .habit-card {
+                background-color: $bg-surface;
+                border: 1px solid $border-color;
+                border-radius: $radius-lg;
+                padding: $space-5;
+                box-shadow: $shadow-xs;
+                animation: app-fade-in 0.3s ease;
+                transition: box-shadow $transition-base, transform $transition-base;
+
+                &:hover {
+                    box-shadow: $shadow-sm;
+                    transform: translateY(-2px);
+                }
+
+                .habit-card-top {
+                    display: flex;
+                    align-items: flex-start;
+                    gap: $space-3;
+                    margin-bottom: $space-4;
+
+                    .habit-color {
+                        width: 12px;
+                        height: 12px;
+                        border-radius: $radius-full;
+                        margin-top: 6px;
+                        flex-shrink: 0;
+                    }
+
+                    .habit-info {
+                        flex: 1;
+                        min-width: 0;
+
+                        .habit-title {
+                            font-size: 15.5px;
+                            font-weight: 700;
+                            color: $gray-900;
+                            word-break: break-word;
+                        }
+
+                        .habit-frequency {
+                            font-size: 12px;
+                            font-weight: 500;
+                            color: $text-muted;
+                            margin-top: 2px;
+                        }
+                    }
+
+                    .edit-btn {
+                        flex-shrink: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        width: 30px;
+                        height: 30px;
+                        border: none;
+                        border-radius: $radius-md;
+                        background-color: transparent;
+                        color: $text-muted;
+                        cursor: pointer;
+                        transition: background-color $transition-fast, color $transition-fast;
+
+                        &:hover {
+                            background-color: $gray-100;
+                            color: $text-secondary;
+                        }
+                    }
+                }
+
+                .habit-streaks {
+                    display: flex;
+                    gap: $space-2;
+                    margin-bottom: $space-4;
+
+                    .streak-pill {
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                        padding: 4px 10px;
+                        border-radius: $radius-full;
+                        background-color: $warning-light;
+                        color: #b45309;
+                        font-size: 12px;
+                        font-weight: 700;
+
+                        svg {
+                            font-size: 14px;
+                        }
+
+                        &.muted {
+                            background-color: $gray-100;
+                            color: $text-secondary;
+                        }
+                    }
+                }
+
+                .habit-bottom {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: $space-3;
+                    flex-wrap: wrap;
+
+                    .today-toggle {
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+                        border: 1px solid $border-color;
+                        background-color: $gray-50;
+                        color: $text-secondary;
+                        padding: 8px $space-3;
+                        border-radius: $radius-md;
+                        font-weight: 600;
+                        font-size: 12.5px;
+                        cursor: pointer;
+                        white-space: nowrap;
+                        transition: background-color $transition-base, color $transition-base, border-color $transition-base, transform $transition-fast;
+
+                        svg {
+                            font-size: 15px;
+                        }
+
+                        &:hover:not(:disabled) {
+                            background-color: $gray-100;
+                        }
+
+                        &:active:not(:disabled) {
+                            transform: scale(0.96);
+                        }
+
+                        &.done {
+                            color: #fff;
+                            border-color: transparent;
+                        }
+
+                        &:disabled {
+                            opacity: 0.55;
+                            cursor: not-allowed;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
