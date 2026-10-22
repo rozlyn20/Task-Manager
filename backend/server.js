@@ -7,6 +7,7 @@ const aiRoutes = require("./routes/aiRoutes");
 const connectDB = require("./config/db");
 const taskRoutes = require("./routes/taskRoutes");
 const habitRoutes = require("./routes/habitRoutes");
+const planRoutes = require("./routes/planRoutes");
 
 connectDB();
 
@@ -30,6 +31,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/sticky", stickyRoutes);
 app.use("/api/ai", aiRoutes);
 app.use("/api/habits", habitRoutes);
+app.use("/api/plans", planRoutes);
 
 app.get("/", (req, res) => {
     res.send("Backend Running");
