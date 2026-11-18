@@ -1,7 +1,7 @@
 import React from 'react'
 import "./sidebar.scss";
 import { useNavigate, NavLink } from 'react-router-dom';
-import {CalendarMonthOutlined, Checklist, Logout, SpaceDashboardOutlined, SearchOutlined, StickyNote2, TaskAlt, ViewKanbanOutlined, InsightsOutlined, RepeatOutlined, AutoAwesome} from '@mui/icons-material';
+import {CalendarMonthOutlined, Logout, SpaceDashboardOutlined, SearchOutlined, StickyNote2, TaskAlt, ViewKanbanOutlined, InsightsOutlined, RepeatOutlined, AutoAwesome} from '@mui/icons-material';
 
 const Sidebar = () => {
  const navigate =useNavigate();
