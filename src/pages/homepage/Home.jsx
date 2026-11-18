@@ -14,18 +14,21 @@ const Home = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-const upcomingTasks = tasks.filter((task) => {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+const getDueDate = (task) => task.dueDate
+  ? new Date(`${String(task.dueDate).slice(0, 10)}T00:00:00`)
+  : null;
 
-  const taskDate = new Date(task.dueDate);
-  taskDate.setHours(0, 0, 0, 0);
-
-  const threeDaysLater = new Date(today);
-  threeDaysLater.setDate(today.getDate() + 3);
-
-  return taskDate >= today && taskDate <= threeDaysLater;
-});
+const topTasks = tasks
+  .filter((task) => !task.completed && task.status !== "Done")
+  .sort((a, b) => {
+    const dateA = getDueDate(a);
+    const dateB = getDueDate(b);
+    if (dateA && dateB) return dateA - dateB;
+    if (dateA) return -1;
+    if (dateB) return 1;
+    return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+  })
+  .slice(0, 5);
 useEffect(() => {
 
     const token = localStorage.getItem("token");
@@ -59,6 +62,22 @@ useEffect(() => {
     }
   };
 
+  const toggleComplete = async (task) => {
+    const nextCompleted = !task.completed;
+    setTasks((current) => current.map((item) => item._id === task._id
+      ? { ...item, completed: nextCompleted, status: nextCompleted ? "Done" : "To Do" }
+      : item));
+    try {
+      await axios.put(`${API_BASE_URL}/api/tasks/${task._id}`, {
+        completed: nextCompleted,
+        status: nextCompleted ? "Done" : "To Do"
+      }, { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } });
+    } catch (error) {
+      setTasks((current) => current.map((item) => item._id === task._id ? task : item));
+      console.log(error);
+    }
+  };
+
   const handleCloseEditor = () => {
     setShowEditor(false);
     setSelectedTask(null);
@@ -71,7 +90,7 @@ useEffect(() => {
         <div className="upcoming-title">
           <p> Home</p>
         </div>
-        <ul>
+          <ul>
           <li
             className="add-task-row"
             onClick={() => {
@@ -90,29 +109,38 @@ useEffect(() => {
           />
         )}
         <div className="upcoming-section">
-  <h3>Upcoming Tasks</h3>
+  <h3>Top 5 Tasks to Do</h3>
 
   {loading ? (
     <div className="app-loading-state">
       <span className="app-spinner"></span>
       <span>Loading your tasks…</span>
     </div>
-  ) : upcomingTasks.length === 0 ? (
+  ) : topTasks.length === 0 ? (
     <div className="app-empty-state">
       <span className="app-empty-icon">
         <EventAvailable />
       </span>
-      <p className="app-empty-title">No upcoming tasks</p>
-      <p className="app-empty-subtitle">Tasks due in the next 3 days will appear here.</p>
+      <p className="app-empty-title">You're all caught up</p>
+      <p className="app-empty-subtitle">Your unfinished tasks will show up here.</p>
     </div>
   ) : (
-    <ul>
-      {upcomingTasks.map((task) => (
+    <ul className="home-task-list">
+      {topTasks.map((task) => (
         <li key={task._id}>
+          <input
+            className="home-task-checkbox"
+            type="checkbox"
+            checked={Boolean(task.completed)}
+            aria-label={`Mark ${task.title} ${task.completed ? "incomplete" : "complete"}`}
+            onChange={() => toggleComplete(task)}
+          />
           <span>{task.title}</span>
 
           <small>
-            {new Date(task.dueDate).toLocaleDateString()}
+            {getDueDate(task)
+              ? `Due ${getDueDate(task).toLocaleDateString()}`
+              : "No due date"}
           </small>
         </li>
       ))}

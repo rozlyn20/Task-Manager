@@ -1,7 +1,7 @@
 import React from 'react'
 import "./sidebar.scss";
 import { useNavigate, NavLink } from 'react-router-dom';
-import {CalendarMonthOutlined, Checklist, Logout, SpaceDashboardOutlined, SearchOutlined, StickyNote2, TaskAlt, ViewKanbanOutlined, InsightsOutlined, RepeatOutlined} from '@mui/icons-material';
+import {CalendarMonthOutlined, Checklist, Logout, SpaceDashboardOutlined, SearchOutlined, StickyNote2, TaskAlt, ViewKanbanOutlined, InsightsOutlined, RepeatOutlined, AutoAwesome} from '@mui/icons-material';
 
 const Sidebar = () => {
  const navigate =useNavigate();
@@ -32,7 +32,7 @@ const Sidebar = () => {
             <span>Home</span>
           </li>
         </NavLink>
-        <NavLink to="/day" className={({isActive}) => isActive ? "active" : ""}>
+        {/* <NavLink to="/day" className={({isActive}) => isActive ? "active" : ""}>
           <li>
             <Checklist className="icon"/>
             <span>Today</span>
@@ -43,11 +43,17 @@ const Sidebar = () => {
             <Checklist className="icon"/>
             <span>Tomorrow</span>
           </li>
-        </NavLink>
+        </NavLink> */}
         <NavLink to="/habits" className={({isActive}) => isActive ? "active" : ""}>
           <li>
             <RepeatOutlined className="icon"/>
             <span>Habits</span>
+          </li>
+        </NavLink>
+        <NavLink to="/planner" className={({isActive}) => isActive ? "active" : ""}>
+          <li>
+            <AutoAwesome className="icon"/>
+            <span>AI Planner</span>
           </li>
         </NavLink>
         <NavLink to="/kanban" className={({isActive}) => isActive ? "active" : ""}>
@@ -128,3 +134,4 @@ const Sidebar = () => {
 }
 
 export default Sidebar
+

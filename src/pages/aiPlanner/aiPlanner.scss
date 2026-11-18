@@ -1,0 +1,134 @@
+@use "../../styles/tokens" as *;
+
+.ai-planner-page {
+  display: flex;
+  min-height: 100vh;
+  background: $bg-app;
+}
+
+.ai-planner-main {
+  flex: 1;
+  min-width: 0;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: $space-8;
+}
+
+.planner-heading {
+  margin-bottom: $space-6;
+
+  h1 { margin: $space-2 0; color: $gray-900; font-size: clamp(26px, 3vw, 34px); letter-spacing: -0.03em; }
+  p { max-width: 680px; color: $text-secondary; font-size: 15px; line-height: 1.65; }
+}
+
+.planner-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $primary;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  svg { font-size: 16px; }
+}
+
+.planner-form, .planner-results {
+  background: $bg-surface;
+  border: 1px solid $border-color;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-xs;
+}
+
+.planner-form {
+  padding: $space-6;
+
+  .planner-goal-label { display: block; margin-bottom: $space-2; color: $gray-800; font-size: 14px; font-weight: 700; }
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 112px;
+    padding: $space-4;
+    resize: vertical;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    background: $gray-50;
+    color: $text-primary;
+    font-size: 15px;
+    line-height: 1.55;
+    &:focus { outline: none; border-color: $primary; box-shadow: $shadow-focus; background: #fff; }
+    &::placeholder { color: $text-muted; }
+  }
+}
+
+.planner-options {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: $space-4;
+  margin-top: $space-4;
+
+  label { display: flex; flex-direction: column; gap: $space-2; color: $text-secondary; font-size: 12px; font-weight: 700; }
+  select { width: 100%; padding: 10px 12px; border: 1px solid $border-color; border-radius: $radius-md; color: $gray-800; background: #fff; font-size: 14px; }
+  select:focus { outline: none; border-color: $primary; box-shadow: $shadow-focus; }
+}
+
+.planner-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $space-4;
+  margin-top: $space-5;
+  color: $text-muted;
+  font-size: 12px;
+
+  button { display: inline-flex; align-items: center; justify-content: center; gap: $space-2; min-height: 42px; padding: 0 $space-5; border: 0; border-radius: $radius-md; color: #fff; background: $primary; font-weight: 700; cursor: pointer; transition: background $transition-base, transform $transition-fast; }
+  button:hover:not(:disabled) { background: $primary-dark; transform: translateY(-1px); }
+  button:disabled { opacity: .6; cursor: wait; }
+}
+
+.planner-message { margin-top: $space-4; padding: $space-3 $space-4; border-radius: $radius-md; font-size: 14px; }
+.planner-error { color: $danger-dark; background: $danger-light; }
+.planner-success { color: #047857; background: $accent-light; }
+
+.planner-results { margin-top: $space-6; padding: $space-6; animation: app-fade-in .3s ease; }
+.planner-results-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: $space-4; padding-bottom: $space-5; border-bottom: 1px solid $border-color; }
+.planner-results-heading h2 { margin: $space-2 0; color: $gray-900; font-size: 23px; }
+.planner-results-heading p { color: $text-secondary; font-size: 14px; line-height: 1.55; }
+.planner-reset { display: inline-flex; align-items: center; gap: 6px; flex: 0 0 auto; padding: 8px 10px; border: 1px solid $border-color; border-radius: $radius-md; color: $text-secondary; background: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
+.planner-reset:hover { background: $gray-50; color: $gray-800; }
+
+.planner-plan-section {
+  margin-top: $space-6;
+  h3 { display: flex; align-items: center; gap: $space-2; margin-bottom: $space-3; color: $gray-800; font-size: 15px; }
+  h3 svg { color: $primary; font-size: 19px; }
+}
+.planner-task-list { display: grid; gap: $space-3; }
+.planner-task { display: flex; align-items: flex-start; gap: $space-3; padding: $space-4; border: 1px solid $border-color; border-radius: $radius-md; background: #fff; transition: opacity $transition-base, border-color $transition-base; }
+.planner-task.is-unselected { opacity: .58; background: $gray-50; }
+.planner-task-check { position: relative; display: inline-flex; flex: 0 0 auto; width: 22px; height: 22px; margin-top: 2px; color: $gray-300; cursor: pointer; }
+.planner-task-check input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.planner-task-check svg { width: 22px; height: 22px; pointer-events: none; }
+.planner-task-check input:checked + svg { color: $primary; fill: $primary-light; }
+.planner-task-content { display: flex; flex: 1; flex-direction: column; min-width: 0; gap: $space-2; }
+.planner-task-title { width: 100%; padding: 2px 0; border: 0; outline: 0; color: $gray-900; font-size: 14px; font-weight: 700; }
+.planner-task-content textarea { width: 100%; padding: 0; resize: vertical; border: 0; outline: 0; color: $text-secondary; background: transparent; font-size: 13px; line-height: 1.5; }
+.planner-date { display: inline-flex; align-items: center; gap: 6px; width: fit-content; color: $text-muted; font-size: 12px; }
+.planner-date svg { color: $primary; }
+.planner-date input { padding: 4px 7px; border: 1px solid $border-color; border-radius: $radius-sm; color: $gray-700; background: $gray-50; font-size: 12px; }
+.planner-week-label { flex: 0 0 auto; padding: 5px 9px; border-radius: $radius-full; color: $primary; background: $primary-light; font-size: 11px; font-weight: 700; }
+.planner-no-items { color: $text-muted; font-size: 13px; }
+.planner-save-bar { position: sticky; bottom: $space-4; display: flex; align-items: center; justify-content: space-between; gap: $space-4; margin-top: $space-6; padding: $space-4; border: 1px solid #d9ddfb; border-radius: $radius-md; background: #f7f7ff; box-shadow: $shadow-md; color: $text-secondary; font-size: 13px; }
+.planner-save-bar button { padding: 11px $space-4; border: 0; border-radius: $radius-md; color: #fff; background: $primary; font-size: 13px; font-weight: 700; cursor: pointer; }
+.planner-save-bar button:hover:not(:disabled) { background: $primary-dark; }
+.planner-save-bar button:disabled { opacity: .6; cursor: wait; }
+
+@media (max-width: 900px) { .ai-planner-main { padding: $space-6; } }
+@media (max-width: 640px) {
+  .ai-planner-main { padding: $space-4; }
+  .planner-form, .planner-results { padding: $space-4; }
+  .planner-options { grid-template-columns: 1fr; gap: $space-3; }
+  .planner-form-footer, .planner-save-bar { align-items: stretch; flex-direction: column; }
+  .planner-form-footer button, .planner-save-bar button { width: 100%; }
+  .planner-results-heading { flex-direction: column; }
+  .planner-task { gap: $space-2; padding: $space-3; }
+  .planner-week-label { padding: 4px 6px; }
+}
